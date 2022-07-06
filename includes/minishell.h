@@ -204,6 +204,9 @@ void				var_clear(t_var **var);
 
 /* ----- redirect ---------------------------------------------------------- */
 
+int                 redirect1(t_exec *cmd, char **envp, int pipefd[2][2]);
+int                 redirect2(t_exec *cmd, char **envp, int pipefd[2][2]);
+
 /* ----- execution --------------------------------------------------------- */
 
 int				    exec(t_exec *exec, t_instance *instance);

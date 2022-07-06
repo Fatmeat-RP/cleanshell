@@ -12,7 +12,7 @@
 
 #include <minishell.h>
 
-void close_pipe(int pipefd[2][2])
+static void close_pipe(int pipefd[2][2])
 {
 	close(pipefd[1][1]);
     close(pipefd[1][0]);
@@ -20,7 +20,19 @@ void close_pipe(int pipefd[2][2])
     close(pipefd[0][0]);
 }
 
-pid_t execmd1(t_exec *cmd, char **envp, int pipefd[2][2])
+static int pipeur(int *pipefd[2][2])
+{
+    if (pipe(pipefd[0]) == -1)
+        return (-1);
+	if (pipe(pipefd[1]) == -1)
+	{
+		close(pipefd[0][0]);
+		close(pipefd[0][1]);
+		return (-1);
+	}
+}
+
+static pid_t execmd1(t_exec *cmd, char **envp, int pipefd[2][2])
 {
 	pid_t	pid;
 
@@ -31,7 +43,7 @@ pid_t execmd1(t_exec *cmd, char **envp, int pipefd[2][2])
 	{
 		signal(SIGQUIT, sig_quit_handler);
 		signal(SIGINT, sig_int_child_handler);
-//        redirect(cmd, envp, pipefd);
+        redirect1(cmd, envp, pipefd);
         dup2(pipefd[0][1], STDOUT_FILENO);
 		dup2(pipefd[1][0], STDIN_FILENO);
 		close_pipe(pipefd);
@@ -41,7 +53,7 @@ pid_t execmd1(t_exec *cmd, char **envp, int pipefd[2][2])
 	return(pid);
 }
 
-pid_t execmd2(t_exec *cmd, char **envp, int pipefd[2][2])
+static pid_t execmd2(t_exec *cmd, char **envp, int pipefd[2][2])
 {
 	pid_t	pid;
 
@@ -52,7 +64,7 @@ pid_t execmd2(t_exec *cmd, char **envp, int pipefd[2][2])
 	{
 		signal(SIGQUIT, sig_quit_handler);
 		signal(SIGINT, sig_int_child_handler);
-//        redirect(cmd, envp, pipefd);
+        redirect2(cmd, envp, pipefd);
         dup2(pipefd[0][0], STDIN_FILENO);
 		dup2(pipefd[1][1], STDOUT_FILENO);
 		close_pipe(pipefd);
@@ -69,14 +81,8 @@ int	execution(t_control_parse *parse_list, t_instance *instance)
     pid_t	        pid;
 
     status = 0;
-    if (pipe(pipefd[0]) == -1)
-        return (-1);
-	if (pipe(pipefd[1]) == -1)
-	{
-		close(pipefd[0][0]);
-		close(pipefd[0][1]);
-		return (-1);
-	}
+    if (pipeur(&pipefd) == -1)
+        return(-1);
 	exes = structurize(parse_list);
 	while (exes->iter->next->next != NULL)
 	{
