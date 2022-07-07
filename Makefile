@@ -26,9 +26,62 @@ ENV			=	$(BIN)env
 
 #$(UNSET)	=	$(BIN)unset
 
-SRCSDIR		= ./srcs/
+SRCSDIR		=	./srcs/
 
-SRCS 		=		$(SRCSDIR)*.c
+SRCS 		=	$(SRCSDIR)check_consec_pipe.c\
+				$(SRCSDIR)check_empty_line.c\
+				$(SRCSDIR)check_first_pipe.c\
+				$(SRCSDIR)check_last_chev.c\
+				$(SRCSDIR)check_last_pipe.c\
+				$(SRCSDIR)check_multi_chev.c\
+				$(SRCSDIR)check_multi_node_chev.c\
+				$(SRCSDIR)check_no_file_name.c\
+				$(SRCSDIR)check_quote.c\
+				$(SRCSDIR)cleaner.c\
+				$(SRCSDIR)cmd_utils.c\
+				$(SRCSDIR)cut_redir.c\
+				$(SRCSDIR)dispatch_var.c\
+				$(SRCSDIR)dollar.c\
+				$(SRCSDIR)exec_add_back.c\
+				$(SRCSDIR)execcmd.c\
+				$(SRCSDIR)exec_last.c\
+				$(SRCSDIR)exec_split.c\
+				$(SRCSDIR)fill_var.c\
+				$(SRCSDIR)first_check.c\
+				$(SRCSDIR)flaggeur_file_name.c\
+				$(SRCSDIR)flaggeur_redir.c\
+				$(SRCSDIR)free_memory.c\
+				$(SRCSDIR)ft_split_it.c\
+				$(SRCSDIR)ft_strcmp.c\
+				$(SRCSDIR)ft_strcpy.c\
+				$(SRCSDIR)ft_strdup.c\
+				$(SRCSDIR)ft_strjoin.c\
+				$(SRCSDIR)ft_strlen.c\
+				$(SRCSDIR)ft_utils.c\
+				$(SRCSDIR)gnl_here_doc.c\
+				$(SRCSDIR)init.c\
+				$(SRCSDIR)init_exec.c\
+				$(SRCSDIR)lst_last.c\
+				$(SRCSDIR)lst_size.c\
+				$(SRCSDIR)parse_add_back.c\
+				$(SRCSDIR)parse.c\
+				$(SRCSDIR)parsing.c\
+				$(SRCSDIR)parsing_printer.c\
+				$(SRCSDIR)printer_error.c\
+				$(SRCSDIR)quote_supp.c\
+				$(SRCSDIR)redirection.c\
+				$(SRCSDIR)set_parseur.c\
+				$(SRCSDIR)set_var.c\
+				$(SRCSDIR)signal.c\
+				$(SRCSDIR)split_block.c\
+				$(SRCSDIR)tote.c\
+				$(SRCSDIR)universal_flaggeur.c\
+				$(SRCSDIR)utils.c\
+				$(SRCSDIR)var_clear.c\
+				$(SRCSDIR)structurize.c\
+				$(SRCSDIR)exec_two.c\
+				$(SRCSDIR)exec.c\
+				$(SRCSDIR)minishell_main.c
 
 ECHO_SRCS	=	./builtins/built_in_echo.c
 

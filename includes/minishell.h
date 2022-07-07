@@ -37,7 +37,7 @@ typedef long long	t_s128;
 typedef struct s_execution  t_exec;
 typedef struct s_parsing    t_parse;
 
-static int g_status = 0;
+extern int g_status;
 
 /* ****************************************************************************
 ------------------------------------DEFINE-----------------------------------
@@ -136,14 +136,14 @@ typedef struct s_control_parse
 {
 	t_parse	*first;
 	t_parse	*iter;
-	t_parse	*size;
+	size_t	size;
 }	t_control_parse;
 
 typedef struct s_control_exec
 {
 	t_exec	*first;
 	t_exec	*iter;
-	t_exec	*size;
+	size_t	size;
 }	t_control_exec;
 
 /* ****************************************************************************
@@ -154,7 +154,7 @@ typedef struct s_control_exec
 
 t_instance		    *if_line(t_instance *instance);
 t_instance		    *init_minishell(char **envp);
-void			    return_prompt(int status, t_instance *instance);
+void			    return_prompt(t_instance *instance);
 
 /* ----- signal ------------------------------------------------------------ */
 
@@ -164,9 +164,9 @@ void			    sig_int_handler(int signum);
 
 /* ----- structurization --------------------------------------------------- */
 
-t_control_exec	    *structurize(t_control_parse *parse_list);
-char			    *get_path(char *cmd, const char **envp, size_t j);
-t_exec			    *create_exec_from_parsec(t_control_parse *parse_list);
+t_control_exec		*structurize(t_control_parse *parse_list, t_instance *instance);
+char			    *get_path(char *cmd, char **envp, size_t j);
+t_exec				*create_exec_from_parsec(t_control_parse *parse_list, t_instance *instance);
 int                 dir_flag(t_exec *node, t_parse *parse);
 
 /* ----- parsing ----------------------------------------------------------- */
@@ -198,22 +198,31 @@ t_var				*fill_var(t_var *var, char **env);
 t_var				*dispatch_var(t_var *var);
 void				dollar(t_control_parse *parsing, char **env);
 int					quote_supp(t_control_parse *parsing);
-t_control_parse		*set_parseur(t_control_parse *parsing, char **line_tab, char **envp);
+t_control_parse		*set_parseur(t_control_parse *parsing, char **line_tab, char **env);
 void				cleaner(t_control_parse *parsing);
 t_control_parse		*parse(t_control_parse *parsing, size_t x, char **env);
 void				var_clear(t_var **var);
 
 /* ----- redirect ---------------------------------------------------------- */
 
-int                 redirect1(t_exec *cmd, char **envp, int pipefd[2][2]);
-int                 redirect2(t_exec *cmd, char **envp, int pipefd[2][2]);
+int                 redirect1(t_exec *cmd, int pipefd[2][2]);
+int                 redirect2(t_exec *cmd, int pipefd[2][2]);
+void				close_pipe(int pipefd[2][2]);
 
 /* ----- execution --------------------------------------------------------- */
 
-int				    exec(t_exec *exec, t_instance *instance);
 int				    execution(t_control_parse *parse_list, t_instance *instance);
 int                 allocator_counter(t_parse *parse, t_exec *node);
 char	            **exec_split(char const *s, char c);
+pid_t 				execmd_last_unpair(t_exec *cmd, char **envp, int pipefd[2][2], pid_t last_cmd_pid);
+pid_t 				execmd_last_pair(t_exec *cmd, char **envp, int pipefd[2][2], pid_t last_cmd_pid);
+pid_t 				execmd_first(t_exec *cmd, char **envp, int pipefd[2][2]);
+pid_t 				execmd2(t_exec *cmd, char **envp, int pipefd[2][2], pid_t last_cmd_pid);
+pid_t 				execmd1(t_exec *cmd, char **envp, int pipefd[2][2], pid_t last_cmd_pid);
+pid_t				morepipe(t_control_exec	*exes, char **envp, int pipefd[2][2]);
+pid_t				threepipe(t_exec *cmd, char **envp, int pipefd[2][2]);
+pid_t				twopipe(t_exec *cmd, char **envp, int pipefd[2][2]);
+pid_t				exec_one_cmd(t_exec *cmd, char **envp, int pipefd[2][2]);
 
 /* ----- utils ------------------------------------------------------------- */
 
@@ -247,6 +256,8 @@ void			    cleaner(t_control_parse *parsing);
 t_control_exec	    *init_exe_list(void);
 t_parse	            *init_parse(char *elem, float flag);
 t_control_parse	    *init_control_parse(void);
+t_var				*ft_lstnew(char *line);
+t_var				*init_var(void);
 
 /* ----- builtins ---------------------------------------------------------- */
 
