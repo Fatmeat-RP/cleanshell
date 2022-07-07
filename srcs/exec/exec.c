@@ -32,8 +32,6 @@ static int pipeur(int *pipefd[2][2])
 	}
 }
 
-
-
 int	execution(t_control_parse *parse_list, t_instance *instance)
 {
 	t_control_exec	*exes;
@@ -57,7 +55,7 @@ int	execution(t_control_parse *parse_list, t_instance *instance)
 	}
 	else
 		pid = exec_one_cmd();
-	waitpid(pid, &instance->status, 0);
+	waitpid(pid, &g_status, 0);
 	return (0);
 }
 
@@ -83,13 +81,18 @@ pid_t	threepipe(t_exec *cmd, char **envp, int pipefd[2][2])
 pid_t	morepipe(t_exec *cmd, char **envp, int pipefd[2][2])
 {
     pid = execmd_first(exes->iter, instance->envp, pipefd);
-	while (exes->iter->next->next->next != NULL)
+	while (exes->iter->next->next != NULL)
 	{
 		pid = execmd1(exes->iter, instance->envp, pipefd);
 		exes->iter = exes->iter->next;
+		if (exes->iter->next == NULL)
+			break;
 		pid = execmd2(exes->iter, instance->envp, pipefd);
 		exes->iter = exes->iter->next;
 	}
-    pid = execmd_last(exes->iter, instance->envp, pipefd);
+	if (exec_size(exes->first) % 2 == 0)
+    	pid = execmd_last_pair(exes->iter, instance->envp, pipefd);
+	else
+		pid = execmd_last_unpair(exes->iter, instance->envp, pipefd);
 	return (pid)
 }

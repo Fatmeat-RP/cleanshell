@@ -20,10 +20,12 @@ t_exec	*init_exe(void)
 	exe->cmd = NULL;
 	exe->in = NULL;
 	exe->out = NULL;
+	exe->limiter = NULL;
 	exe->is_pipe = false;
 	exe->is_here_doc = false;
-	exe->is_append = false;
+	exe->is_append = NULL;
 	exe->next = NULL;
+	exe->prev = NULL;
 	return (exe);
 }
 

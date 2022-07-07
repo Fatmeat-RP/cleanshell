@@ -119,7 +119,8 @@ struct s_execution
 	t_bool	    is_pipe;
     char	    *is_append;
 	t_bool	    is_here_doc;
-	t_exec	*next;
+	t_exec		*next;
+	t_exec		*prev;
 };	
 
 struct s_parsing

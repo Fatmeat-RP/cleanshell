@@ -19,6 +19,7 @@ void	exec_add_back(t_control_exec *lst, t_exec *add)
 	else
 	{
 		lst->iter = exec_last(lst);
+		add->prev = lst->iter;
 		lst->iter->next = add;
 		lst->iter = lst->first;
 	}
