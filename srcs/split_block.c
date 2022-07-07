@@ -6,7 +6,7 @@
 /*   By: cben-bar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 13:55:51 by cben-bar          #+#    #+#             */
-/*   Updated: 2022/06/15 17:39:19 by cben-bar         ###   ########lyon.fr   */
+/*   Updated: 2022/07/07 19:43:44 by cben-bar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,18 @@ void	splitter(t_control_parse *parsing, t_control_parse *rep)
 	{
 		if (parsing->iter->flag != 7)
 		{
-			if (parsing->iter->next)
-				new = split_block(parsing->iter->elem, 1);
-			else
-				new = split_block(parsing->iter->elem, 0);
-			if (i == 0)
-				rep->first = new->iter;
-			if (i > 0)
-				rep->iter->next = new->iter;
-			rep->iter = new->iter;
-			while (rep->iter->next)
-				rep->iter = rep->iter->next;
-			free(new);
+				if (parsing->iter->next)
+					new = split_block(parsing->iter->elem, 1);
+				else
+					new = split_block(parsing->iter->elem, 0);
+				if (i == 0)
+					rep->first = new->iter;
+				if (i > 0)
+					rep->iter->next = new->iter;
+				rep->iter = new->iter;
+				while (rep->iter->next)
+					rep->iter = rep->iter->next;
+				free(new);
 		}
 		parsing->iter = parsing->iter->next;
 		i++;

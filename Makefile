@@ -77,7 +77,7 @@ SRCS 		=	$(SRCSDIR)check_consec_pipe.c\
 				$(SRCSDIR)tote.c\
 				$(SRCSDIR)universal_flaggeur.c\
 				$(SRCSDIR)utils.c\
-				$(SRCSDIR)var_clear.c\
+				$(SRCSDIR)supp_empty_node.c\
 				$(SRCSDIR)structurize.c\
 				$(SRCSDIR)exec_two.c\
 				$(SRCSDIR)exec.c\

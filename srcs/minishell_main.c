@@ -31,10 +31,7 @@ int main(int ac, char **av, char **envp)
 			return (-1);
 		}
 		else if (instance->line[0] != 0)
-		{
-			printf("1");
 			instance = if_line(instance);
-		}
 	}
 	rl_clear_history();
 	return (0);
@@ -65,21 +62,14 @@ t_instance *if_line(t_instance *instance)
 	t_control_parse	*parse_list;
 
 	add_history(instance->line);
-	printf("2");
 	parse_list = parsing(instance->line, instance->envp);
 	printf("3");
-	//sleep(1);
-	//g_status = -1;
-	//return(instance);
 	if (!parse_list)
-	{
-	    instance->status = -1;
 	    return(instance);
-	}
 	printf("4");
-	execution(parse_list, instance);
+	sleep(1);
+//	execution(parse_list, instance);
 	printf("5");
 	return_prompt(instance);
-	printf("6");
 	return (instance);
 }

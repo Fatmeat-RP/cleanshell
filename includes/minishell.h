@@ -99,7 +99,6 @@ typedef struct s_instance
 	char	**envp;
 	char	*prompt;
 	char	*line;
-    int     status;
 }		t_instance;
 
 typedef struct s_var
@@ -128,7 +127,6 @@ struct s_parsing
 	char	*elem;
 	int		flag;
 	size_t	pos_dol;
-	char	*varname;
 	t_parse	*next;
 };
 
@@ -178,14 +176,18 @@ t_bool				check_empty_line(char *line);
 t_bool				check_last_pipe(char *line);
 t_bool				check_last_chev(char *line);
 t_bool				check_first_pipe(char *line);
+size_t				ft_strlen(char *s);
 t_bool				check_quote(char *line);
 char				**ft_split_it(char *line, char c, size_t i, int q);
 int					tote(char c, int q);
 t_bool				check_consec_pipe(char *line);
+char				*ft_strdup(char *s1);
 t_control_parse		*split_block(char *elem, int x);
 void				splitter(t_control_parse *parsing, t_control_parse *rep);
 void				tab_cleaner(char **tab);
 void				flaggeur_redir(t_control_parse *parsing);
+int					ft_strcmp(char *s1, char *s2);
+int					ft_strncmp(char *s1, char *s2, size_t n);
 void				flaggeur_file_name(t_control_parse *parsing);
 void				cut_redir(t_control_parse *parsing);
 void				universal_flaggeur(t_control_parse *parsing);
@@ -196,12 +198,13 @@ t_bool				printer_error(t_control_parse *parsing);
 t_var				*set_var(char **env);
 t_var				*fill_var(t_var *var, char **env);
 t_var				*dispatch_var(t_var *var);
+int					ft_strcmp(char *s1, char *s2);
+char				*ft_strcpy(char *dest, char *src);
+char				*ft_strjoin(char *s1, char *s2);
 void				dollar(t_control_parse *parsing, char **env);
 int					quote_supp(t_control_parse *parsing);
+void				supp_empty_node(t_control_parse *parsing);
 t_control_parse		*set_parseur(t_control_parse *parsing, char **line_tab, char **env);
-void				cleaner(t_control_parse *parsing);
-t_control_parse		*parse(t_control_parse *parsing, size_t x, char **env);
-void				var_clear(t_var **var);
 
 /* ----- redirect ---------------------------------------------------------- */
 
@@ -254,10 +257,15 @@ size_t			    exec_size(t_control_exec *lst);
 size_t			    parse_size(t_control_parse *lst);
 void			    cleaner(t_control_parse *parsing);
 t_control_exec	    *init_exe_list(void);
-t_parse	            *init_parse(char *elem, float flag);
-t_control_parse	    *init_control_parse(void);
+t_parse				*init_parse(char *elem, float flag);
+t_control_parse		*init_control_parse(void);
+size_t				ft_strlen(char *s);
+t_control_parse		*set_parseur(t_control_parse *parsing, char **line_tab, char **envp);
+void				cleaner(t_control_parse *parsing);
+t_control_parse		*parse(t_control_parse *parsing, size_t x, char **env);
+void				var_clear(t_var *var);
 t_var				*ft_lstnew(char *line);
-t_var				*init_var(void);
+
 
 /* ----- builtins ---------------------------------------------------------- */
 
