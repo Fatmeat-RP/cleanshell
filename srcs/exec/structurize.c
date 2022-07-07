@@ -17,8 +17,12 @@ t_control_exec	*structurize(t_control_parse *parse_list, t_instance *instance)
 	t_control_exec	*exe_list;
 
 	exe_list = init_exe_list();
-	while (parse_list->size != 0)
+	parse_list->size = parse_size(parse_list->iter);
+	while (parse_list->size >= 1)
+	{
 		exec_add_back(exe_list, create_exec_from_parsec(parse_list, instance));
+	 	parse_list->size = parse_size(parse_list->iter);
+	}
 	return (exe_list);
 }
 
@@ -36,8 +40,7 @@ t_exec *create_exec_from_parsec(t_control_parse *parse_list, t_instance *instanc
         || parse_list->first->flag == EMPTY_LINE)
         return(NULL);
 	node = init_exe();
-	parse_list->iter = parse_list->first;
-	while (parse_list->iter->flag != PIPE_FLAG)
+	while (parse_list->iter->flag != PIPE_FLAG && parse_list->size >= 1)
 	{
         if (parse_list->iter->flag == CMD_FLAG || parse_list->iter->flag == BUILTIN_FLAG)
         {
@@ -53,7 +56,8 @@ t_exec *create_exec_from_parsec(t_control_parse *parse_list, t_instance *instanc
         parse_list->iter = parse_list->iter->next;
 		i++;
 	}
-	parse_list->size -= i;
+	if (parse_list->iter->flag == PIPE_FLAG)
+		node->is_pipe == true;
 	return (node);
 }
 

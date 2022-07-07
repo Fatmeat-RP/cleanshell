@@ -32,69 +32,64 @@ static int pipeur(int *pipefd[2][2])
 	}
 }
 
-static pid_t execmd1(t_exec *cmd, char **envp, int pipefd[2][2])
-{
-	pid_t	pid;
 
-	pid = fork();
-	if (pid == -1)
-		return (-1);
-	if (pid == 0)
-	{
-		signal(SIGQUIT, sig_quit_handler);
-		signal(SIGINT, sig_int_child_handler);
-        redirect1(cmd, envp, pipefd);
-        dup2(pipefd[0][1], STDOUT_FILENO);
-		dup2(pipefd[1][0], STDIN_FILENO);
-		close_pipe(pipefd);
-		status = execve(cmd->cmd[0], cmd->cmd, envp);
-		exit(status);
-	}
-	return(pid);
-}
-
-static pid_t execmd2(t_exec *cmd, char **envp, int pipefd[2][2])
-{
-	pid_t	pid;
-
-	pid = fork();
-	if (pid == -1)
-		return (-1);
-	if (pid == 0)
-	{
-		signal(SIGQUIT, sig_quit_handler);
-		signal(SIGINT, sig_int_child_handler);
-        redirect2(cmd, envp, pipefd);
-        dup2(pipefd[0][0], STDIN_FILENO);
-		dup2(pipefd[1][1], STDOUT_FILENO);
-		close_pipe(pipefd);
-		status = execve(cmd->cmd[0], cmd->cmd, envp);
-		exit(status);
-	}
-	return (pid);
-}
 
 int	execution(t_control_parse *parse_list, t_instance *instance)
 {
 	t_control_exec	*exes;
     int             pipefd[2][2];
     pid_t	        pid;
+    size_t          pipe_nb;
 
     status = 0;
     if (pipeur(&pipefd) == -1)
         return(-1);
 	exes = structurize(parse_list);
-	while (exes->iter->next->next != NULL)
+	if (exes->first->is_pipe = true)
 	{
-        if (ft_strncmp(exes->iter->cmd[0], "cd", 3) == 0)
-            execve(exes->iter->cmd[0], exes->iter->cmd, instance->envp);
-		pid = execmd1(exes->iter, instance->envp, pipefd);
-		exes->iter = exes->iter->next;
-        replace_status(exes->iter);
-		pid = execmd2(exes->iter, instance->envp, pipefd);
-		exes->iter = exes->iter->next;
-        replace_status(exes->iter);
+		pipe_nb = exec_size(exes->iter);
+		if (pipe_nb == 2)
+			pid = twopipe();
+		if (pipe_nb == 3)
+			pid = threepipe();
+		if (pipe_nb <= 4)
+			pid = morepipe();
 	}
+	else
+		pid = exec_one_cmd();
 	waitpid(pid, &instance->status, 0);
 	return (0);
+}
+
+pid_t	twopipe(t_exec *cmd, char **envp, int pipefd[2][2])
+{
+    pid = execmd_first(exes->iter, instance->envp, pipefd);
+	exes->iter = exes->iter->next;
+	pid = execmd1(exes->iter, instance->envp, pipefd);
+	exes->iter = exes->iter->next;
+    pid = execmd_last(exes->iter, instance->envp, pipefd);
+	return (pid)
+}
+
+pid_t	threepipe(t_exec *cmd, char **envp, int pipefd[2][2])
+{
+    pid = execmd_first(exes->iter, instance->envp, pipefd);
+		pid = execmd2(exes->iter, instance->envp, pipefd);
+		exes->iter = exes->iter->next;
+    pid = execmd_last(exes->iter, instance->envp, pipefd);
+	return (pid)
+}
+
+pid_t	morepipe(t_exec *cmd, char **envp, int pipefd[2][2])
+{
+    pid = execmd_first(exes->iter, instance->envp, pipefd);
+	while (exes->iter->next->next->next != NULL)
+	{
+		pid = execmd1(exes->iter, instance->envp, pipefd);
+		exes->iter = exes->iter->next;
+		pid = execmd2(exes->iter, instance->envp, pipefd);
+		exes->iter = exes->iter->next;
+	}
+    pid = execmd_last(exes->iter, instance->envp, pipefd);
+	return (pid)
 }
