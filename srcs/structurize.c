@@ -12,20 +12,16 @@
 
 #include <minishell.h>
 
-t_control_exec	*structurize(t_control_parse *parse_list, t_instance *instance)
+t_control_exec	*structurize(t_control_parse *parse_list, t_instance *instance, t_parse *first)
 {
-	t_control_exec	*exe_list;
+	t_control_exec	*exes;
 
-	exe_list = init_exe_list();
-	printf("%p\n", parse_list->iter);
-	sleep(1);
-	parse_list->size = parse_size(parse_list);
-	while (parse_list->size >= 1)
-	{
-		exec_add_back(exe_list, create_exec_from_parsec(parse_list, instance));
-	 	parse_list->size = parse_size(parse_list);
-	}
-	return (exe_list);
+	exes = NULL;
+	exes = init_exe_list(exes);
+	parse_list->iter = first;
+	while (exec_add_back(exes, create_exec_from_parsec(parse_list, instance)))
+		printf("oui\n");
+	return (exes);
 }
 
 t_exec *create_exec_from_parsec(t_control_parse *parse_list, t_instance *instance)
@@ -42,7 +38,7 @@ t_exec *create_exec_from_parsec(t_control_parse *parse_list, t_instance *instanc
         || parse_list->first->flag == EMPTY_LINE)
         return(NULL);
 	node = init_exe();
-	while (parse_list->iter->flag != PIPE_FLAG && parse_list->size)
+	while (parse_list->iter->flag != PIPE_FLAG && parse_list->iter != NULL)
 	{
         if (parse_list->iter->flag == CMD_FLAG || parse_list->iter->flag == BUILTIN_FLAG)
         {
@@ -54,7 +50,7 @@ t_exec *create_exec_from_parsec(t_control_parse *parse_list, t_instance *instanc
 			node->cmd[j] = strdup(parse_list->iter->elem);
             j++;
 		}
-        allocator_counter(parse_list->iter, node);
+        allocator_counter(parse_list, node);
         parse_list->iter = parse_list->iter->next;
 		i++;
 	}
@@ -63,7 +59,7 @@ t_exec *create_exec_from_parsec(t_control_parse *parse_list, t_instance *instanc
 	return (node);
 }
 
-int allocator_counter(t_parse *parse, t_exec *node)
+int allocator_counter(t_control_parse *parse_list, t_exec *node)
 {
     int     in;
     int     out;
@@ -72,17 +68,18 @@ int allocator_counter(t_parse *parse, t_exec *node)
     ptr = parse;
     in = 0;
     out = 0;
-    while (parse->flag != PIPE_FLAG)
+    while (parse_list->iter->flag != PIPE_FLAG)
     {
-        if (parse->flag == REDIR_IN_FLAG)
+        if (parse_list->iter->flag == REDIR_IN_FLAG)
             in++;
-        if (parse->flag == REDIR_OUT_FLAG)
+        if (parse_list->iter->flag == REDIR_OUT_FLAG)
             out++;
-        if (parse->flag == REDIR_OUT_ADD_FLAG)
+        if (parse_list->iter->flag == REDIR_OUT_ADD_FLAG)
             out++;
-        parse = parse->next;
+		printf("oui%i::%i::%p\n", in, out, parse_list->iter->next);
+        parse_list->iter = parse_list->iter->next;
     }
-    parse = ptr;
+    parse_list->iter = ptr;
     node->in = malloc(sizeof(char *) * in + 1);
     if (!(node->in))
         return(-1);
@@ -94,31 +91,31 @@ int allocator_counter(t_parse *parse, t_exec *node)
     if (!(node->is_append))
         return((free(node->in), -1) && (free(node->out), -1));
     out = 0;
-    while (parse->next->flag != PIPE_FLAG)
+    while (parse_list->iter->next->flag != PIPE_FLAG)
     {
-        if (parse->flag == REDIR_IN_FLAG)
+        if (parse_list->iter->flag == REDIR_IN_FLAG)
         { 
-            parse = parse->next;
-            node->in[in++] = strdup(parse->elem);
+            parse_list->iter = parse_list->iter->next;
+            node->in[in++] = strdup(parse_list->iter->elem);
         }
-        if (parse->flag == REDIR_OUT_FLAG)
+        if (parse_list->iter->flag == REDIR_OUT_FLAG)
         {
-            parse = parse->next;
-            node->out[out] = strdup(parse->elem);
+            parse_list->iter = parse_list->iter->next;
+            node->out[out] = strdup(parse_list->iter->elem);
             node->is_append[out++] = '0';
         }
-        if (parse->flag == REDIR_OUT_ADD_FLAG)
+        if (parse_list->iter->flag == REDIR_OUT_ADD_FLAG)
         {
-            parse = parse->next;
-            node->out[out] = strdup(parse->elem);
+            parse_list->iter = parse_list->iter->next;
+            node->out[out] = strdup(parse_list->iter->elem);
             node->is_append[out++] = '1';
         }
-        if (parse->flag == DELIM_NAME)
+        if (parse_list->iter->flag == DELIM_NAME)
         {
             node->is_here_doc = true;
-            node->limiter = ft_strdup(parse->elem);
+            node->limiter = ft_strdup(parse_list->iter->elem);
         }
-        parse = parse->next;
+        parse_list->iter = parse_list->iter->next;
     }
     node->out[out] = NULL;
     node->in[in] = NULL;

@@ -29,13 +29,10 @@ t_exec	*init_exe(void)
 	return (exe);
 }
 
-t_control_exec	*init_exe_list(void)
+t_control_exec	*init_exe_list(t_control_exec *exe)
 {
-	t_control_exec	*exe;
-
-	exe = (t_control_exec *)malloc(sizeof(t_control_exec));
+	exe = calloc(3, 8);
 	exe->first = NULL;
 	exe->iter = NULL;
-	exe->size = 0;
 	return (exe);
 }

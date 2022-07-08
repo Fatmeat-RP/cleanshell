@@ -63,8 +63,6 @@ t_instance *if_line(t_instance *instance)
 
 	add_history(instance->line);
 	parse_list = parsing(instance->line, instance->envp);
-	printf("%p\n", parse_list->first);
-	sleep(1);
 	if (!parse_list)
 	    return(instance);
 	execution(parse_list, instance);

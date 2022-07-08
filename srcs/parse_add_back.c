@@ -22,7 +22,6 @@ void	parse_add_back(t_control_parse *lst, t_parse *add)
 		lst->iter->next = add;
 		lst->iter = lst->first;
 	}
-	lst->size++;
 }
 
 void	parse_add_just_back(t_control_parse *lst, t_parse *add)
@@ -37,7 +36,6 @@ void	parse_add_just_back(t_control_parse *lst, t_parse *add)
 		lst->iter->next = add;
 		add->next = dec;
 	}
-	lst->size++;
 }
 
 t_var	*ft_lstlast(t_var *lst)

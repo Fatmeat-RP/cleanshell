@@ -134,14 +134,12 @@ typedef struct s_control_parse
 {
 	t_parse	*first;
 	t_parse	*iter;
-	size_t	size;
 }	t_control_parse;
 
 typedef struct s_control_exec
 {
 	t_exec	*first;
 	t_exec	*iter;
-	size_t	size;
 }	t_control_exec;
 
 /* ****************************************************************************
@@ -162,10 +160,10 @@ void			    sig_int_handler(int signum);
 
 /* ----- structurization --------------------------------------------------- */
 
-t_control_exec		*structurize(t_control_parse *parse_list, t_instance *instance);
 char			    *get_path(char *cmd, char **envp, size_t j);
 t_exec				*create_exec_from_parsec(t_control_parse *parse_list, t_instance *instance);
 int                 dir_flag(t_exec *node, t_parse *parse);
+t_control_exec		*structurize(t_control_parse *parse_list, t_instance *instance, t_parse *first);
 
 /* ----- parsing ----------------------------------------------------------- */
 
@@ -215,7 +213,7 @@ void				close_pipe(int pipefd[2][2]);
 /* ----- execution --------------------------------------------------------- */
 
 int				    execution(t_control_parse *parse_list, t_instance *instance);
-int                 allocator_counter(t_parse *parse, t_exec *node);
+int                 allocator_counter(t_control_parse *parse_list, t_exec *node);
 char	            **exec_split(char const *s, char c);
 pid_t 				execmd_last_unpair(t_exec *cmd, char **envp, int pipefd[2][2], pid_t last_cmd_pid);
 pid_t 				execmd_last_pair(t_exec *cmd, char **envp, int pipefd[2][2], pid_t last_cmd_pid);
@@ -251,12 +249,12 @@ t_exec			    *exec_last(t_control_exec *lst);
 t_parse	            *parse_last(t_control_parse *lst);
 void        	    parse_add_back(t_control_parse *lst, t_parse *add);
 void	            parse_add_just_back(t_control_parse *lst, t_parse *add);
-void			    exec_add_back(t_control_exec *lst, t_exec *add);
+int				    exec_add_back(t_control_exec *lst, t_exec *add);
 t_exec			    *init_exe(void);
 size_t			    exec_size(t_control_exec *lst);
 size_t			    parse_size(t_control_parse *lst);
 void			    cleaner(t_control_parse *parsing);
-t_control_exec	    *init_exe_list(void);
+t_control_exec		*init_exe_list(t_control_exec *exe);
 t_parse				*init_parse(char *elem, float flag);
 t_control_parse		*init_control_parse(void);
 size_t				ft_strlen(char *s);

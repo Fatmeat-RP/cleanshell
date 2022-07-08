@@ -34,7 +34,6 @@ t_control_parse	*init_control_parse(void)
 		return (NULL);
 	parse->first = NULL;
 	parse->iter = NULL;
-	parse->size = 0;
 	return (parse);
 }
 

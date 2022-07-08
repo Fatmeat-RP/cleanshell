@@ -12,8 +12,10 @@
 
 #include <minishell.h>
 
-void	exec_add_back(t_control_exec *lst, t_exec *add)
+int	exec_add_back(t_control_exec *lst, t_exec *add)
 {
+	if (add == NULL)
+		return (-1);
 	if (lst->first == NULL)
 		lst->first = add;
 	else
@@ -23,5 +25,7 @@ void	exec_add_back(t_control_exec *lst, t_exec *add)
 		lst->iter->next = add;
 		lst->iter = lst->first;
 	}
-	lst->size++;
+	if (exec_last(lst) != add)
+		return (-1);
+	return (0);
 }

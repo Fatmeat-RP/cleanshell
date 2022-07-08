@@ -16,14 +16,17 @@ size_t	parse_size(t_control_parse *lst)
 {
 	size_t	i;
 
-	i = 0;
+	i = 1;
+	printf("1");
+	sleep(1);
 	if (!lst->iter)
 		return (0);
-	while (lst->iter->next)
+	while (lst->iter->next != NULL)
 	{
 		lst->iter = lst->iter->next;
 		i++;
 	}
+	lst->iter = lst->first;
 	return (i);
 }
 
