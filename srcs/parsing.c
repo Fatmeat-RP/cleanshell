@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cben-bar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 16:09:27 by cben-bar          #+#    #+#             */
-/*   Updated: 2022/06/23 16:04:31 by cben-bar         ###   ########lyon.fr   */
+/*   Updated: 2022/07/08 22:15:16 by acarle-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_control_parse	*parsing(char *line, char **envp)
 		parsing = set_parseur(parsing, line_tab, envp);
 		if (!printer_error(parsing))
 			return (NULL);
+		parsing_printer(parsing);
 		cleaner(parsing);
 	}
 	return (parsing);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_empty_line.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cben-bar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 18:36:44 by cben-bar          #+#    #+#             */
-/*   Updated: 2022/05/27 20:30:08 by cben-bar         ###   ########lyon.fr   */
+/*   Updated: 2022/07/08 22:15:16 by acarle-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,13 @@ t_bool	check_empty_line(char *line)
 
 	i = 0;
 	if (!ft_strlen(line))
-	{
 		return (false);
-	}
 	else
 	{
 		while (line[i] == ' ')
-		{
-			if (line[i + 1] == '\0')
-			{
-				return (false);
-			}
 			i++;
-		}
+		if (!line[i])
+			return (false);
 	}
 	return (true);
 }

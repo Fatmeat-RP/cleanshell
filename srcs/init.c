@@ -6,7 +6,7 @@
 /*   By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 14:18:59 by acarle-m          #+#    #+#             */
-/*   Updated: 2022/07/06 17:31:15 by cben-bar         ###   ########.fr       */
+/*   Updated: 2022/07/08 22:15:03 by acarle-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_control_parse	*init_control_parse(void)
 		return (NULL);
 	parse->first = NULL;
 	parse->iter = NULL;
+	parse->size = 0;
 	return (parse);
 }
 

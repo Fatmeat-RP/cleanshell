@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_multi_node_chev.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cben-bar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 16:36:27 by cben-bar          #+#    #+#             */
-/*   Updated: 2022/06/16 15:08:16 by cben-bar         ###   ########lyon.fr   */
+/*   Updated: 2022/07/08 22:15:16 by acarle-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	replace_node(t_parse *node)
 {
+	size_t	i;
+	
+	i = 0;
 	free(node->elem);
 	if (node->flag == REDIR_IN_FLAG
 		|| node->flag == HERE_DOC_FLAG)

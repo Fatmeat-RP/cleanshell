@@ -6,7 +6,7 @@
 /*   By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 19:15:22 by cben-bar          #+#    #+#             */
-/*   Updated: 2022/05/09 14:28:27 by acarle-m         ###   ########.fr       */
+/*   Updated: 2022/07/08 22:15:41 by acarle-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,12 +134,14 @@ typedef struct s_control_parse
 {
 	t_parse	*first;
 	t_parse	*iter;
+	size_t	*size;
 }	t_control_parse;
 
 typedef struct s_control_exec
 {
 	t_exec	*first;
 	t_exec	*iter;
+	size_t	*size;
 }	t_control_exec;
 
 /* ****************************************************************************

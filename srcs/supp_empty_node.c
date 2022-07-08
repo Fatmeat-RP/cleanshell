@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   supp_empty_node.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cben-bar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:02:48 by cben-bar          #+#    #+#             */
-/*   Updated: 2022/07/07 15:58:37 by cben-bar         ###   ########.fr       */
+/*   Updated: 2022/07/08 22:15:16 by acarle-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 t_bool	empty_elem(char *s)
 {
+	size_t	i;
+
+	i = 0;
 	if (!s)
 		return (true);
 	if (ft_strlen(s) == 0)
@@ -24,40 +27,32 @@ t_bool	empty_elem(char *s)
 void	supp_empty_node(t_control_parse *parsing)
 {
 	size_t			i;
-	t_parse			*node_prev;
 	t_parse	*tmp;
 
 	i = 1;
-	node_prev = NULL;
 	parsing->iter = parsing->first;
 	while (parsing->iter)
 	{
+		tmp = parsing->first;
 		if (empty_elem(parsing->first->elem))
 		{
-			tmp = parsing->first;
 			parsing->first = parsing->first->next;
+			parsing->iter = parsing->first;
 			free(tmp->elem);
 			free(tmp);
 			tmp = NULL;
 		}
 		else if (empty_elem(parsing->iter->elem))
 		{
-			if (parsing->iter->next)
-			{
-				node_prev->next = parsing->iter->next;
-				free(parsing->iter->elem);
-				free(parsing->iter);
-			}
-			else
-			{
-				node_prev->next = NULL;
-				free(parsing->iter->elem);
-				free(parsing->iter);
-			}
+			while (tmp->next != parsing->iter)
+				tmp = tmp->next;
+			tmp->next = parsing->iter->next;
+			free(parsing->iter->elem);
+			free(parsing->iter);
+			parsing->iter = tmp;
 		}
-		node_prev = parsing->iter;
-		parsing->iter = parsing->iter->next;
+		else
+			parsing->iter = parsing->iter->next;
 		i++;
 	}
-//checker deux noeud vides a la suite (quid du next?)
 }

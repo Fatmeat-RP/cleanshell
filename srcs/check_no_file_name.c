@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_no_file_name.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cben-bar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 14:55:03 by cben-bar          #+#    #+#             */
-/*   Updated: 2022/06/16 15:09:23 by cben-bar         ###   ########lyon.fr   */
+/*   Updated: 2022/07/08 22:15:16 by acarle-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	replace_node2(t_parse *node)
 {
+	size_t	i;
+
+	i = 0;
 	free(node->elem);
 	node->elem = ft_strdup("syntax error near unexpected token `|'");
 	node->flag = PARSE_ERROR;

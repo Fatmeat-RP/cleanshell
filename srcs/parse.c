@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cben-bar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 16:42:39 by cben-bar          #+#    #+#             */
-/*   Updated: 2022/07/07 19:49:07 by cben-bar         ###   ########.fr       */
+/*   Updated: 2022/07/08 22:15:16 by acarle-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ t_control_parse	*parse(t_control_parse *parsing, size_t x, char **env)
 	(void)env;
 	t_control_parse	*replace;
 	replace = malloc(sizeof(t_control_parse));
+
 	if (x > 1)
 	{
 		while (parsing->iter->next)
@@ -26,6 +27,7 @@ t_control_parse	*parse(t_control_parse *parsing, size_t x, char **env)
 			parsing->iter = parsing->iter->next;
 		}
 	}
+
 	if (x == 1)
 	{
 		parsing->first->flag = 5;
@@ -41,8 +43,8 @@ t_control_parse	*parse(t_control_parse *parsing, size_t x, char **env)
 	check_multi_chev(replace);
 	check_multi_node_chev(replace);
 	check_no_file_name(replace);
+	supp_empty_node(replace);
 	quote_supp(replace);
-//	supp_empty_node(replace);
 	cleaner(parsing);
 	return (replace);
 }
