@@ -17,6 +17,8 @@ t_control_exec	*structurize(t_control_parse *parse_list, t_instance *instance)
 	t_control_exec	*exe_list;
 
 	exe_list = init_exe_list();
+	printf("%p\n", parse_list->iter);
+	sleep(1);
 	parse_list->size = parse_size(parse_list);
 	while (parse_list->size >= 1)
 	{

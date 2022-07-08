@@ -41,9 +41,11 @@ int	execution(t_control_parse *parse_list, t_instance *instance)
     size_t          pipe_nb;
 
 	pid = 0;
+	printf("%p\n", parse_list);
+	sleep(1);
+	exes = structurize(parse_list, instance);/*it doesn't create node here*/
 	if (pipeur(pipefd) == -1)
         return(-1);
-	exes = structurize(parse_list, instance);
 	if (exes->first->is_pipe == true)
 	{
 		pipe_nb = exec_size(exes);

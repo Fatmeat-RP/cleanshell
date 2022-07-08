@@ -31,7 +31,7 @@ size_t	exec_size(t_control_exec *lst)
 {
 	size_t	i;
 
-	i = 0;
+	i = 1;
 	if (!lst->iter)
 		return (0);
 	while (lst->iter->next)
