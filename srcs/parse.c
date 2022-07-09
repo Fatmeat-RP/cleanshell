@@ -6,7 +6,7 @@
 /*   By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 16:42:39 by cben-bar          #+#    #+#             */
-/*   Updated: 2022/07/08 22:15:16 by acarle-m         ###   ########.fr       */
+/*   Updated: 2022/07/09 01:17:32 by acarle-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ t_control_parse	*parse(t_control_parse *parsing, size_t x, char **env)
 {
 	(void)env;
 	t_control_parse	*replace;
-	replace = malloc(sizeof(t_control_parse));
 
+	replace = malloc(sizeof(t_control_parse));
 	if (x > 1)
 	{
 		while (parsing->iter->next)
@@ -27,12 +27,8 @@ t_control_parse	*parse(t_control_parse *parsing, size_t x, char **env)
 			parsing->iter = parsing->iter->next;
 		}
 	}
-
 	if (x == 1)
-	{
 		parsing->first->flag = 5;
-		return (parsing);
-	}
 	splitter(parsing, replace);
 	dollar(replace, env);
 	flaggeur_redir(replace);
@@ -43,7 +39,8 @@ t_control_parse	*parse(t_control_parse *parsing, size_t x, char **env)
 	check_multi_chev(replace);
 	check_multi_node_chev(replace);
 	check_no_file_name(replace);
-	supp_empty_node(replace);
+	if (supp_empty_node(replace))
+		re_flaggeur(replace);
 	quote_supp(replace);
 	cleaner(parsing);
 	return (replace);

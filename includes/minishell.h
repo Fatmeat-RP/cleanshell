@@ -6,7 +6,7 @@
 /*   By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 19:15:22 by cben-bar          #+#    #+#             */
-/*   Updated: 2022/07/08 22:15:41 by acarle-m         ###   ########.fr       */
+/*   Updated: 2022/07/09 01:20:34 by acarle-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ void			    sig_int_handler(int signum);
 char			    *get_path(char *cmd, char **envp, size_t j);
 t_exec				*create_exec_from_parsec(t_control_parse *parse_list, t_instance *instance);
 int                 dir_flag(t_exec *node, t_parse *parse);
-t_control_exec		*structurize(t_control_parse *parse_list, t_instance *instance, t_parse *first);
+t_control_exec		*structurize(t_control_parse *parse_list, t_instance *instance);
 
 /* ----- parsing ----------------------------------------------------------- */
 
@@ -201,10 +201,12 @@ t_var				*dispatch_var(t_var *var);
 int					ft_strcmp(char *s1, char *s2);
 char				*ft_strcpy(char *dest, char *src);
 char				*ft_strjoin(char *s1, char *s2);
-void				dollar(t_control_parse *parsing, char **env);
+int					dollar(t_control_parse *parsing, char **env);
 int					quote_supp(t_control_parse *parsing);
-void				supp_empty_node(t_control_parse *parsing);
-t_control_parse		*set_parseur(t_control_parse *parsing, char **line_tab, char **env);
+int					supp_empty_node(t_control_parse *parsing);
+char				*ft_itoa(int n);
+void				re_flaggeur(t_control_parse *parsing);
+
 
 /* ----- redirect ---------------------------------------------------------- */
 
@@ -265,7 +267,7 @@ void				cleaner(t_control_parse *parsing);
 t_control_parse		*parse(t_control_parse *parsing, size_t x, char **env);
 void				var_clear(t_var *var);
 t_var				*ft_lstnew(char *line);
-
+void				var_clear(t_var *var);
 
 /* ----- builtins ---------------------------------------------------------- */
 

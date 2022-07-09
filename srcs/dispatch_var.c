@@ -6,7 +6,7 @@
 /*   By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 20:42:52 by cben-bar          #+#    #+#             */
-/*   Updated: 2022/07/08 22:15:16 by acarle-m         ###   ########.fr       */
+/*   Updated: 2022/07/09 01:17:32 by acarle-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,14 @@ char	*ft_name_value(size_t i, char *s)
 
 	j = 0;
 	x = ft_strlen(s);
-	value = malloc(sizeof(char) * x - i + 1);
+	value = malloc(sizeof(char) * (x - i + 1));
 	while (s[i])
 	{
 		value[j] = s[i];
 		j++;
 		i++;
 	}
+	value[j] = '\0';
 	return (value);
 }
 
@@ -71,11 +72,11 @@ t_var	*dispatch_var(t_var *var)
 		value = NULL;
 		i = ft_len_name(var->varname);
 		name = ft_namer(i, var->varname);
-		i ++;
+		i++;
 		value = ft_name_value(i, var->varname);
 		free(var->varname);
-		var->varname = ft_strdup(name);
-		var->value = ft_strdup(value);
+		var->varname = name;
+		var->value = value;
 		var = var->next;
 	}
 	var = start;

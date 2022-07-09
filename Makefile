@@ -6,7 +6,7 @@
 #    By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/21 18:00:59 by cben-bar          #+#    #+#              #
-#    Updated: 2022/05/09 14:40:25 by acarle-m         ###   ########.fr        #
+#    Updated: 2022/07/09 01:21:51 by acarle-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,6 +81,8 @@ SRCS 		=	$(SRCSDIR)check_consec_pipe.c\
 				$(SRCSDIR)structurize.c\
 				$(SRCSDIR)exec_two.c\
 				$(SRCSDIR)exec.c\
+				$(SRCSDIR)ft_itoa.c\
+				$(SRCSDIR)re_flaggeur.c\
 				$(SRCSDIR)minishell_main.c
 
 ECHO_SRCS	=	./builtins/built_in_echo.c

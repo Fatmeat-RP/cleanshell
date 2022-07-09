@@ -6,7 +6,7 @@
 /*   By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 16:26:54 by cben-bar          #+#    #+#             */
-/*   Updated: 2022/07/08 22:15:16 by acarle-m         ###   ########.fr       */
+/*   Updated: 2022/07/09 01:17:32 by acarle-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	var_clear(t_var *var)
 			free(tmp->value);
 			var = var->next;
 			free(tmp);
+			tmp = NULL;
 		}
 		tmp = NULL;
 	}

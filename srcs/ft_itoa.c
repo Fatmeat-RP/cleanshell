@@ -1,41 +1,62 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/24 12:18:49 by cben-bar          #+#    #+#             */
+/*   Created: 2021/11/15 21:38:52 by cben-bar          #+#    #+#             */
 /*   Updated: 2022/07/09 01:17:32 by acarle-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	ft_strcmp(char *s1, char *s2)
+int	ft_size_malloc(long nb)
 {
-	size_t	i;
+	int	count;
 
-	i = 0;
-	while (s1[i] || s2[i])
+	count = 0;
+	if (nb < 0)
 	{
-		if (s1[i] != s2[i])
-			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-		i++;
+		count++;
+		nb *= -1;
 	}
-	return (0);
+	while (nb > 0 || count == 0)
+	{
+		count++;
+		nb /= 10;
+	}
+	return (count);
 }
 
-int	ft_strncmp(char *s1, char *s2, size_t n)
+void	ft_add_str(char *str, int index, long nb)
 {
-	size_t	i;
+	char	*base;
 
-	i = 0;
-	while ((s1[i] || s2[i]) && i < n)
+	base = "0123456789";
+	if (nb >= 10)
+		ft_add_str(str, index - 1, nb / 10);
+	str[index] = base[nb % 10];
+}
+
+char	*ft_itoa(int n)
+{
+	char	*str;
+	long	nb;
+	int		size;
+
+	nb = (long)n;
+	size = ft_size_malloc(nb);
+	str = malloc(sizeof(char) * (size + 1));
+	if (!str)
+		return (NULL);
+	if (nb < 0)
 	{
-		if (s1[i] != s2[i])
-			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-		i++;
+		nb *= -1;
+		str[0] = '-';
 	}
-	return (0);
+	ft_add_str(str, size - 1, nb);
+	str[size] = '\0';
+	return (str);
 }

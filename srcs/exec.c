@@ -6,7 +6,7 @@
 /*   By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 20:21:49 by acarle-m          #+#    #+#             */
-/*   Updated: 2022/05/10 15:50:08 by acarle-m         ###   ########.fr       */
+/*   Updated: 2022/07/09 00:51:43 by acarle-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	execution(t_control_parse *parse_list, t_instance *instance)
     size_t          pipe_nb;
 
 	pid = 0;
-	exes = structurize(parse_list, instance, parse_list->first);
+	exes = structurize(parse_list, instance);
 	if (pipeur(pipefd) == -1)
         return(-1);
 	if (exes->first->is_pipe == true)

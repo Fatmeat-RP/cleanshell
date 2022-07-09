@@ -6,7 +6,7 @@
 /*   By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 16:17:02 by cben-bar          #+#    #+#             */
-/*   Updated: 2022/07/08 22:15:16 by acarle-m         ###   ########.fr       */
+/*   Updated: 2022/07/09 01:17:32 by acarle-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,15 @@ t_var	*node_env(char *varname, t_var *var)
 
 t_bool	in_charset(char c)
 {
-	if (c == ' ' || c == '|' || c == '-' || c == '\0' || c == '$' || c == '\'' || c == '\"')
+	if (c == ' ' || c == '|' || c == '-' || c == '\0'
+		|| c == '$' || c == '\'' || c == '\"')
 		return (true);
 	return (false);
 }
 
 char	*find_name(char *s, size_t dellen)
 {
-	char *varname;
+	char	*varname;
 	size_t	i;
 	size_t	j;
 	int		q;
@@ -63,9 +64,11 @@ char	*find_name(char *s, size_t dellen)
 int	search_value(char *varname, t_var *var)
 {
 	t_var	*start;
+
 	start = var;
-//	if (ft_strcmp(varname, "?") == 0)
-//		return (2);
+	if (ft_strcmp(varname, "?") == 0)
+		return (2);
+
 	while (var)
 	{
 		if (ft_strcmp(varname, var->varname) == 0)
@@ -81,22 +84,22 @@ size_t	cpy_value(char *s, t_var *var, size_t dellen, char *dst)
 	size_t	i;
 	char	*varname;
 	t_var	*start;
-//	char	*itoa_g_status;
+	char	*itoa_g_status;
 
 	start = var;
 	i = 0;
 	varname = find_name(s, dellen);
-//	if (search_value(varname, var) == 2)
-//	{
-//		itoa_g_status = ft_itoa(g_status);
-//		while (itoa_g_status[i])
-//		{
-//			s[i] = itoa_g_status[i];
-//			i++;
-//		}
-//		free(itoa_g_status);
-//	}
-	if (search_value(varname, var) == 1)
+	if (search_value(varname, var) == 2)
+	{
+		itoa_g_status = ft_itoa(g_status);
+		while (itoa_g_status[i])
+		{
+			dst[i] = itoa_g_status[i];
+			i++;
+		}
+		free(itoa_g_status);
+	}
+	else if (search_value(varname, var) == 1)
 	{
 		var = node_env(varname, var);
 		while (var->value[i])
@@ -106,6 +109,7 @@ size_t	cpy_value(char *s, t_var *var, size_t dellen, char *dst)
 		}
 	}
 	var = start;
+	free(varname);
 	return (i);
 }
 
@@ -133,7 +137,6 @@ void	sub_it(char *final_s, t_parse *node, t_var *var, size_t	dellen)
 		else
 		{
 			final_s[j] = node->elem[i];
-
 			i++;
 			j++;
 		}
@@ -145,16 +148,17 @@ size_t	ft_find_value(char *varname, t_var *var)
 {
 	t_var	*start;
 	size_t	len;
-//	char	*itoa_g_status;
+	char	*itoa_g_status;
 
 	start = var;
 	len = 0;
-//	if (ft_strcmp(varname, "?") == 0)
-//	{
-//		itoa_g_status = ft_itoa(g_status);
-//		len = ft_strlen(itoa_g_status)));
-//		free(itoa_g_status);
-//	}
+	if (ft_strcmp(varname, "?") == 0)
+	{
+		itoa_g_status = ft_itoa(g_status);
+		len = ft_strlen(itoa_g_status);
+		free(itoa_g_status);
+		return (len);
+	}
 	while (var && len == 0)
 	{
 		if (ft_strcmp(varname, var->varname) == 0)
@@ -213,25 +217,27 @@ size_t	finddellen(char *s)
 	return (del);
 }
 
-void	ft_alloc(t_parse *node, t_var *var)
+int	ft_alloc(t_parse *node, t_var *var)
 {
-	size_t	dellen;
+	size_t	delen;
 	size_t	addlen;
 	char	*final_s;
 
-	dellen = finddellen(node->elem);
-	addlen = findaddlen(node->elem, dellen, var);
-	final_s = malloc(sizeof(char) * (ft_strlen(node->elem) + addlen - dellen + 1));
-	sub_it(final_s, node, var, dellen);
+	delen = finddellen(node->elem);
+	addlen = findaddlen(node->elem, delen, var);
+	final_s = malloc(sizeof(char) * (ft_strlen(node->elem) + addlen - delen + 1));
+	if (!final_s)
+		return (0);
+	sub_it(final_s, node, var, delen);
 	free(node->elem);
 	node->elem = final_s;
+	return (1);
 }
 
-t_bool	there_is_doll(char *s, t_parse *node)
+t_bool	there_is_doll(char *s)
 {
 	size_t	i;
-	int	q;
-	(void)node;
+	int		q;
 
 	i = 0;
 	q = 0;
@@ -245,22 +251,22 @@ t_bool	there_is_doll(char *s, t_parse *node)
 	return (false);
 }
 
-void	dollar(t_control_parse *parsing, char **env)
+int	dollar(t_control_parse *parsing, char **env)
 {
 	t_var	*var;
-	var = set_var(env);
 
+	var = set_var(env);
 	parsing->iter = parsing->first;
 	while (parsing->iter)
 	{
-		if (there_is_doll(parsing->iter->elem, parsing->iter))
+		if (there_is_doll(parsing->iter->elem))
 		{
-			ft_alloc(parsing->iter, var);
+			if (!ft_alloc(parsing->iter, var))
+				return (0);
 		}
 		else
-		{
 			parsing->iter = parsing->iter->next;
-		}	
 	}
+	var_clear(var);
+	return (1);
 }
-

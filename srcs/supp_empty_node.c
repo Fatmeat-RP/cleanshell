@@ -6,7 +6,7 @@
 /*   By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:02:48 by cben-bar          #+#    #+#             */
-/*   Updated: 2022/07/08 22:15:16 by acarle-m         ###   ########.fr       */
+/*   Updated: 2022/07/09 01:17:32 by acarle-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,14 @@ t_bool	empty_elem(char *s)
 	return (false);
 }
 
-void	supp_empty_node(t_control_parse *parsing)
+int	supp_empty_node(t_control_parse *parsing)
 {
-	size_t			i;
+	size_t	i;
 	t_parse	*tmp;
+	int		ori_flag;
 
 	i = 1;
+	ori_flag = 0;
 	parsing->iter = parsing->first;
 	while (parsing->iter)
 	{
@@ -41,6 +43,7 @@ void	supp_empty_node(t_control_parse *parsing)
 			free(tmp->elem);
 			free(tmp);
 			tmp = NULL;
+			ori_flag = 1;
 		}
 		else if (empty_elem(parsing->iter->elem))
 		{
@@ -55,4 +58,5 @@ void	supp_empty_node(t_control_parse *parsing)
 			parsing->iter = parsing->iter->next;
 		i++;
 	}
+	return (ori_flag);
 }
