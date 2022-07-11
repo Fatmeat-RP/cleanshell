@@ -17,7 +17,6 @@ t_exec	*init_exe(void)
 	t_exec	*exe;
 
 	exe = (t_exec *)malloc(sizeof(t_exec));
-	exe->cmd = NULL;
 	exe->in = NULL;
 	exe->out = NULL;
 	exe->limiter = NULL;
@@ -29,9 +28,11 @@ t_exec	*init_exe(void)
 	return (exe);
 }
 
-t_control_exec	*init_exe_list(t_control_exec *exe)
+t_control_exec	*init_exe_list(void)
 {
-	exe = calloc(3, 8);
+	t_control_exec *exe;
+
+	exe = malloc(sizeof(t_control_exec));//calloc(3, 8);
 	exe->first = NULL;
 	exe->iter = NULL;
 	return (exe);

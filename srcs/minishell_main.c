@@ -59,13 +59,15 @@ t_instance *init_minishell(char **envp)
 
 t_instance *if_line(t_instance *instance)
 {
-	t_control_parse	*parse_list;
+	t_control_parse	*parse;
 
 	add_history(instance->line);
-	parse_list = parsing(instance->line, instance->envp);
-	if (!parse_list)
+	parse = parsing(instance->line, instance->envp);
+	if (!parse)
 	    return(instance);
-	execution(parse_list, instance);
+	parse->iter = parse->first;
+	struct2(parse);
+//	execution(parse_list, instance);
 	return_prompt(instance);
 	return (instance);
 }

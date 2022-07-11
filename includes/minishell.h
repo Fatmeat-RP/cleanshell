@@ -111,7 +111,7 @@ typedef struct s_var
 
 struct s_execution
 {
-	char	    **cmd;
+	char	    *cmd[100];
 	char	    **in;
 	char	    **out;
     char        *limiter;
@@ -165,7 +165,8 @@ void			    sig_int_handler(int signum);
 char			    *get_path(char *cmd, char **envp, size_t j);
 t_exec				*create_exec_from_parsec(t_control_parse *parse_list, t_instance *instance);
 int                 dir_flag(t_exec *node, t_parse *parse);
-t_control_exec		*structurize(t_control_parse *parse_list, t_instance *instance);
+//t_control_exec		*structurize(t_control_parse *parse_list, t_instance *instance);
+t_control_exec		*struct2(t_control_parse *parse);
 
 /* ----- parsing ----------------------------------------------------------- */
 
@@ -216,7 +217,7 @@ void				close_pipe(int pipefd[2][2]);
 
 /* ----- execution --------------------------------------------------------- */
 
-int				    execution(t_control_parse *parse_list, t_instance *instance);
+int				    execution(t_control_exec *exes, t_instance *instance);
 int                 allocator_counter(t_control_parse *parse_list, t_exec *node);
 char	            **exec_split(char const *s, char c);
 pid_t 				execmd_last_unpair(t_exec *cmd, char **envp, int pipefd[2][2], pid_t last_cmd_pid);
@@ -258,7 +259,7 @@ t_exec			    *init_exe(void);
 size_t			    exec_size(t_control_exec *lst);
 size_t			    parse_size(t_control_parse *lst);
 void			    cleaner(t_control_parse *parsing);
-t_control_exec		*init_exe_list(t_control_exec *exe);
+t_control_exec		*init_exe_list(void);
 t_parse				*init_parse(char *elem, float flag);
 t_control_parse		*init_control_parse(void);
 size_t				ft_strlen(char *s);

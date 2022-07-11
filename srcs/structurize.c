@@ -24,12 +24,20 @@ t_control_exec	*structurize(t_control_parse *parse_list, t_instance *instance)
 	return (exes);
 }
 
+int	check_test(t_parse *node)
+{
+	if (node == NULL)
+		return (-1);
+	if (node->flag == PIPE_FLAG)
+		return (0);
+	return (1);
+}
+
 t_exec *create_exec_from_parsec(t_control_parse *parse_list, t_instance *instance)
 {
 	t_exec		*node;
 	size_t		i;
     size_t      j;
-	char		*tmp;
 
 	i = 0;
     j = 1;
@@ -48,16 +56,15 @@ t_exec *create_exec_from_parsec(t_control_parse *parse_list, t_instance *instanc
 	}
 	printf("0");
 	sleep(1);
-	while (parse_list->iter->flag != PIPE_FLAG && parse_list->iter != NULL)
+	while (check_test(parse_list->iter))
 	{
 		printf("1");
 		sleep(1);
         if (parse_list->iter->flag == CMD_FLAG)
-            tmp = get_path(strdup(parse_list->iter->elem), instance->envp, 0);
-		printf("%p", node->cmd);
+            node->cmd[0] = get_path(strdup(parse_list->iter->elem), instance->envp, 0);
 		sleep(14);
 		if (parse_list->iter->flag == BUILTIN_FLAG)
-			;
+			node->cmd[0] = get_path(strdup(parse_list->iter->elem), instance->envp, 0);;
         if (parse_list->iter->flag == ARGS_FLAG)
 		{
 			node->cmd[j] = strdup(parse_list->iter->elem);
@@ -85,7 +92,7 @@ int allocator_counter(t_control_parse *parse_list, t_exec *node)
     in = 0;
     out = 0;
 	j = 0;
-    while (parse_list->iter->flag != PIPE_FLAG && parse_list->iter)
+    while (parse_list->iter->flag != PIPE_FLAG && parse_list->iter->next)
     {
         if (parse_list->iter->flag == REDIR_IN_FLAG)
             in++;
@@ -98,8 +105,8 @@ int allocator_counter(t_control_parse *parse_list, t_exec *node)
 		j++;
         parse_list->iter = parse_list->iter->next;
 		printf("oui%i::%i::%p\n", in, out, parse_list->iter);
-		if (!parse_list->iter->next && ((out + in) >= (j/2)))
-			return(-1);
+//		if (!parse_list->iter->next && ((out + in) >= (j/2)))
+//			return(-1);
     }
     parse_list->iter = ptr;
 	if (in == 0 || out == 0)

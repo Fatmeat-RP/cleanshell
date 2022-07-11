@@ -14,9 +14,6 @@
 
 void	replace_node2(t_parse *node)
 {
-	size_t	i;
-
-	i = 0;
 	free(node->elem);
 	node->elem = ft_strdup("syntax error near unexpected token `|'");
 	node->flag = PARSE_ERROR;

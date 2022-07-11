@@ -14,9 +14,6 @@
 
 t_bool	empty_elem(char *s)
 {
-	size_t	i;
-
-	i = 0;
 	if (!s)
 		return (true);
 	if (ft_strlen(s) == 0)

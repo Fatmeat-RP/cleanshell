@@ -33,15 +33,15 @@ static int pipeur(int pipefd[2][2])
 	return(0);
 }
 
-int	execution(t_control_parse *parse_list, t_instance *instance)
+int	execution(t_control_exec *exes, t_instance *instance)
 {
-	t_control_exec	*exes;
     int             pipefd[2][2];
     pid_t	        pid;
     size_t          pipe_nb;
 
 	pid = 0;
-	exes = structurize(parse_list, instance);
+	printf("nee");
+	sleep(3);
 	if (pipeur(pipefd) == -1)
         return(-1);
 	if (exes->first->is_pipe == true)

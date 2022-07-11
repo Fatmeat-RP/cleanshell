@@ -14,9 +14,6 @@
 
 void	replace_node(t_parse *node)
 {
-	size_t	i;
-	
-	i = 0;
 	free(node->elem);
 	if (node->flag == REDIR_IN_FLAG
 		|| node->flag == HERE_DOC_FLAG)
