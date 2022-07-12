@@ -167,7 +167,7 @@ char			    *get_path(char *cmd, char **envp, size_t j);
 t_exec				*create_exec_from_parsec(t_control_parse *parse_list, t_instance *instance);
 int                 dir_flag(t_exec *node, t_parse *parse);
 //t_control_exec		*structurize(t_control_parse *parse_list, t_instance *instance);
-t_control_exec		*struct2(t_control_parse *parse, int nb_pipe);
+t_control_exec	*struct2(t_control_parse *parse, int nb_pipe, char **envp);
 int					pipe_counter(t_control_parse *parse);
 int					control_parse(t_control_parse *truct);
 void				exec_cleaner(t_control_exec *exec);
@@ -225,15 +225,15 @@ void				close_pipe(int pipefd[2][2]);
 int				    execution(t_control_exec *exes, t_instance *instance);
 int                 allocator_counter(t_control_parse *parse_list, t_exec *node);
 char	            **exec_split(char const *s, char c);
-pid_t 				execmd_last_unpair(t_exec *cmd, char **envp, int pipefd[2][2], pid_t last_cmd_pid);
-pid_t 				execmd_last_pair(t_exec *cmd, char **envp, int pipefd[2][2], pid_t last_cmd_pid);
-pid_t 				execmd_first(t_exec *cmd, char **envp, int pipefd[2][2]);
-pid_t 				execmd2(t_exec *cmd, char **envp, int pipefd[2][2], pid_t last_cmd_pid);
-pid_t 				execmd1(t_exec *cmd, char **envp, int pipefd[2][2], pid_t last_cmd_pid);
-pid_t				morepipe(t_control_exec	*exes, char **envp, int pipefd[2][2]);
-pid_t				threepipe(t_exec *cmd, char **envp, int pipefd[2][2]);
-pid_t				twopipe(t_exec *cmd, char **envp, int pipefd[2][2]);
-pid_t				exec_one_cmd(t_exec *cmd, char **envp, int pipefd[2][2]);
+//pid_t 				execmd_last_unpair(t_exec *cmd, char **envp, int pipefd[2][2]);//, pid_t last_cmd_pid);
+//pid_t 				execmd_last_pair(t_exec *cmd, char **envp, int pipefd[2][2]);//, pid_t last_cmd_pid);
+//pid_t 				execmd_first(t_exec *cmd, char **envp, int pipefd[2][2]);
+//pid_t 				execmd2(t_exec *cmd, char **envp, int pipefd[2][2]);//, pid_t last_cmd_pid);
+//pid_t 				execmd1(t_exec *cmd, char **envp, int pipefd[2][2]);//, pid_t last_cmd_pid);
+//pid_t				morepipe(t_control_exec	*exes, char **envp, int pipefd[2][2]);
+//pid_t				threepipe(t_exec *cmd, char **envp, int pipefd[2][2]);
+//pid_t				twopipe(t_exec *cmd, char **envp, int pipefd[2][2]);
+pid_t				exec_one_cmd(t_exec *cmd, char **envp);//, int pipefd[2][2]);
 
 /* ----- utils ------------------------------------------------------------- */
 

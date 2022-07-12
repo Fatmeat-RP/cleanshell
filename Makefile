@@ -43,7 +43,6 @@ SRCS 		=	$(SRCSDIR)check_consec_pipe.c\
 				$(SRCSDIR)dispatch_var.c\
 				$(SRCSDIR)dollar.c\
 				$(SRCSDIR)exec_add_back.c\
-				$(SRCSDIR)execcmd.c\
 				$(SRCSDIR)exec_last.c\
 				$(SRCSDIR)exec_split.c\
 				$(SRCSDIR)fill_var.c\
@@ -79,13 +78,14 @@ SRCS 		=	$(SRCSDIR)check_consec_pipe.c\
 				$(SRCSDIR)utils.c\
 				$(SRCSDIR)utils2.c\
 				$(SRCSDIR)supp_empty_node.c\
-				$(SRCSDIR)exec_two.c\
 				$(SRCSDIR)exec.c\
 				$(SRCSDIR)ft_itoa.c\
 				$(SRCSDIR)re_flaggeur.c\
 				$(SRCSDIR)struct2.c\
 				$(SRCSDIR)minishell_main.c
 #				$(SRCSDIR)structurize.c\
+				$(SRCSDIR)exec_two.c\
+				$(SRCSDIR)execcmd.c\
 
 
 ECHO_SRCS	=	./builtins/built_in_echo.c

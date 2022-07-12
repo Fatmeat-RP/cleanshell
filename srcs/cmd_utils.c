@@ -23,8 +23,8 @@ char	*get_path(char *cmd, char **envp, size_t j)
 	if (envp[j] == NULL)
 		return (cmd);
 	paths = exec_split(envp[j] + 5, ':');
-	j = 0;
-	while (paths[j++])
+	j = -1;
+	while (paths[++j] != NULL)
 	{
 		part_path = ft_strjoin(paths[j], "/");
 		path = ft_strfreejoin(part_path, cmd);

@@ -1,6 +1,6 @@
 #include <minishell.h>
 
-t_control_exec	*struct2(t_control_parse *parse, int nb_pipe)
+t_control_exec	*struct2(t_control_parse *parse, int nb_pipe, char **envp)
 {
 	t_control_exec	*exec;
 	int				i;
@@ -12,12 +12,21 @@ t_control_exec	*struct2(t_control_parse *parse, int nb_pipe)
 //	convert_struct(parse, exec, nb_pipe);
 	while (parse->iter)
 	{
+//		allocator_counter(parse, exec->iter);
 		if (parse->iter->flag == PIPE_FLAG)
 		{
-			printf("%i\n", i);
-			i++;
 			exec->iter->is_pipe = true;
 			exec->iter = exec->iter->next;
+		}
+		if (parse->iter->flag == CMD_FLAG)
+            exec->iter->cmd[0] = get_path(strdup(parse->iter->elem), envp, 0);
+		if (parse->iter->flag == BUILTIN_FLAG)
+			exec->iter->cmd[0] = get_path(strdup(parse->iter->elem), envp, 0);
+        if (parse->iter->flag == ARGS_FLAG)
+		{
+			exec->iter->cmd[i] = strdup(parse->iter->elem);
+            i++;
+			exec->iter->cmd[i] = NULL;
 		}
 		parse->iter = parse->iter->next;
 	}

@@ -33,7 +33,7 @@ int main(int ac, char **av, char **envp)
 		}
 		else if (instance->line[0] != 0)
 		{
-			if (ft_strncmp(instance->line, "kill", 5) == 0)
+			if (ft_strncmp(instance->line, "exit", 5) == 0)
 				return (free_instance(instance, -1));
 			if_line(instance);
 		}
@@ -75,13 +75,13 @@ void	if_line(t_instance *instance)
 	    return (return_prompt(instance));
 	parse->iter = parse->first;
 	nb_pipe = pipe_counter(parse);
-	exec = struct2(parse, nb_pipe);
+	exec = struct2(parse, nb_pipe, instance->envp);
 	if (!exec)
 	{
 		cleaner(parse);
 	    return(return_prompt(instance));
 	}
-//	execution(exec, instance);
+	execution(exec, instance);
 	cleaner(parse);
 	exec_cleaner(exec);
 	return (return_prompt(instance));
