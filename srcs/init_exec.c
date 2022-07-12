@@ -15,7 +15,9 @@
 t_exec	*init_exe(void)
 {
 	t_exec	*exe;
+	int		i;
 
+	i = 0;
 	exe = (t_exec *)malloc(sizeof(t_exec));
 	exe->in = NULL;
 	exe->out = NULL;
@@ -25,7 +27,11 @@ t_exec	*init_exe(void)
 	exe->is_append = NULL;
 	exe->next = NULL;
 	exe->prev = NULL;
-	exe->cmd[1] = "ls\0";
+	while (i < 100)
+	{
+		exe->cmd[i] = NULL;
+		i++;
+	}
 	return (exe);
 }
 

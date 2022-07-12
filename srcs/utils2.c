@@ -8,6 +8,10 @@ void	exec_cleaner(t_control_exec *exec)
 	while (exec->first != NULL)
 	{
 		exec->iter = exec->first->next;
+	//	tab_cleaner(exec->first->in);
+	//	tab_cleaner(exec->first->out);
+	//	free(exec->first->is_append);
+	//	free(exec->first->limiter);
 		free(exec->first);
 		exec->first = exec->iter;
 	}
