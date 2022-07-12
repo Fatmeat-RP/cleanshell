@@ -14,10 +14,7 @@ t_control_exec	*struct2(t_control_parse *parse, int nb_pipe, char **envp)
 	{
 //		allocator_counter(parse, exec->iter);
 		if (parse->iter->flag == PIPE_FLAG)
-		{
-			exec->iter->is_pipe = true;
 			exec->iter = exec->iter->next;
-		}
 		if (parse->iter->flag == CMD_FLAG)
             exec->iter->cmd[0] = get_path(strdup(parse->iter->elem), envp, 0);
 		if (parse->iter->flag == BUILTIN_FLAG)
@@ -25,8 +22,7 @@ t_control_exec	*struct2(t_control_parse *parse, int nb_pipe, char **envp)
         if (parse->iter->flag == ARGS_FLAG)
 		{
 			exec->iter->cmd[i] = strdup(parse->iter->elem);
-            i++;
-			exec->iter->cmd[i] = NULL;
+			i++;
 		}
 		parse->iter = parse->iter->next;
 	}

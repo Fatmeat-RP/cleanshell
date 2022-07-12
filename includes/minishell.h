@@ -115,7 +115,6 @@ struct s_execution
 	char	    **in;
 	char	    **out;
     char        *limiter;
-	t_bool	    is_pipe;
     char	    *is_append;
 	t_bool	    is_here_doc;
 	t_exec		*next;
@@ -167,7 +166,7 @@ char			    *get_path(char *cmd, char **envp, size_t j);
 t_exec				*create_exec_from_parsec(t_control_parse *parse_list, t_instance *instance);
 int                 dir_flag(t_exec *node, t_parse *parse);
 //t_control_exec		*structurize(t_control_parse *parse_list, t_instance *instance);
-t_control_exec	*struct2(t_control_parse *parse, int nb_pipe, char **envp);
+t_control_exec		*struct2(t_control_parse *parse, int nb_pipe, char **envp);
 int					pipe_counter(t_control_parse *parse);
 int					control_parse(t_control_parse *truct);
 void				exec_cleaner(t_control_exec *exec);
@@ -233,7 +232,8 @@ char	            **exec_split(char const *s, char c);
 //pid_t				morepipe(t_control_exec	*exes, char **envp, int pipefd[2][2]);
 //pid_t				threepipe(t_exec *cmd, char **envp, int pipefd[2][2]);
 //pid_t				twopipe(t_exec *cmd, char **envp, int pipefd[2][2]);
-pid_t				exec_one_cmd(t_exec *cmd, char **envp);//, int pipefd[2][2]);
+void				exec_one_cmd(t_exec *cmd, char **envp);
+pid_t				forklift(t_exec *cmd, char **envp);
 
 /* ----- utils ------------------------------------------------------------- */
 

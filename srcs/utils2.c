@@ -10,8 +10,8 @@ void	exec_cleaner(t_control_exec *exec)
 		exec->iter = exec->first->next;
 	//	tab_cleaner(exec->first->in);
 	//	tab_cleaner(exec->first->out);
-	//	free(exec->first->is_append);
-	//	free(exec->first->limiter);
+		free(exec->first->is_append);
+		free(exec->first->limiter);
 		free(exec->first);
 		exec->first = exec->iter;
 	}
@@ -43,7 +43,7 @@ int	test_free(t_control_exec *exec, int nb_pipe)
 	}
 	while (nb_pipe != 0)
 	{
-		if (exec_add_back(exec, init_exe()))
+		if (!exec_add_back(exec, init_exe()))
 		{
 			exec_cleaner(exec);
 			return (-1);

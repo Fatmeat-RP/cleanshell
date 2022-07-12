@@ -82,10 +82,10 @@ SRCS 		=	$(SRCSDIR)check_consec_pipe.c\
 				$(SRCSDIR)ft_itoa.c\
 				$(SRCSDIR)re_flaggeur.c\
 				$(SRCSDIR)struct2.c\
+				$(SRCSDIR)execcmd.c\
 				$(SRCSDIR)minishell_main.c
 #				$(SRCSDIR)structurize.c\
 				$(SRCSDIR)exec_two.c\
-				$(SRCSDIR)execcmd.c\
 
 
 ECHO_SRCS	=	./builtins/built_in_echo.c

@@ -35,48 +35,34 @@ int pipeur(int pipefd[2][2])
 
 int	execution(t_control_exec *exes, t_instance *instance)
 {
-//    int             pipefd[2][2];
-    pid_t	        pid;
-//    size_t          pipe_nb;
-//
+    pid_t	pid;
+	int		old_in;
+
 	pid = 0;
-/*	sleep(3);
-	if (pipeur(pipefd) == -1)
-        return(-1);
-	if (exes->first->is_pipe == true)
+	old_in = dup(STDIN_FILENO);
+	while (exes->iter->next != NULL)
 	{
-		pipe_nb = exec_size(exes);
-		if (pipe_nb == 2)
-			pid = twopipe(exes->iter, instance->envp, pipefd);
-		if (pipe_nb == 3)
-			pid = threepipe(exes->iter, instance->envp, pipefd);
-		if (pipe_nb <= 4)
-			pid = morepipe(exes, instance->envp, pipefd);
-	}
-	else*/
-	pid = exec_one_cmd(exes->iter, instance->envp);
-	waitpid(pid, &g_status, 0);
-	return (0);
-}
-
-pid_t	exec_one_cmd(t_exec *cmd, char **envp)
-{
-	pid_t	pid;
-
-    if (ft_strncmp(cmd->cmd[0], "cd", 3) == 0)
-	{
-		g_status = execve(cmd->cmd[0], cmd->cmd, envp);
-		return (0);
+		forklift(exes->iter, instance->envp);
+		exes->iter = exes->iter->next;
 	}
 	pid = fork();
 	if (pid == -1)
 		return (-1);
-	else if (pid == 0)
+	if (pid == 0)
 	{
-		signal(SIGQUIT, sig_quit_handler);
-		signal(SIGINT, sig_int_child_handler);
-		g_status = execve(cmd->cmd[0], cmd->cmd, envp);
-		exit(g_status);
+		exec_one_cmd(exes->iter, instance->envp);
+		exit (g_status);
 	}
-	return (pid);
+	waitpid(pid, &g_status, 0);
+	dup2(old_in, STDIN_FILENO);
+	close(old_in);
+	return (0);
+}
+
+void	exec_one_cmd(t_exec *cmd, char **envp)
+{
+	signal(SIGQUIT, sig_quit_handler);
+	signal(SIGINT, sig_int_child_handler);
+	g_status = execve(cmd->cmd[0], cmd->cmd, envp);
+	exit(g_status);
 }
