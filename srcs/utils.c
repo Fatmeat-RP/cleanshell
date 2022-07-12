@@ -31,3 +31,18 @@ size_t	ft_size(char **array)
 		i++;
 	return (i);
 }
+
+int	pipe_counter(t_control_parse *parse)
+{
+	int	i;
+
+	i = 0;
+	while (parse->iter)
+	{
+		if (parse->iter->flag == PIPE_FLAG)
+			i++;
+		parse->iter = parse->iter->next;
+	}
+	parse->iter = parse->first;
+	return (i);
+}

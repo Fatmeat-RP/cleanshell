@@ -77,6 +77,7 @@ SRCS 		=	$(SRCSDIR)check_consec_pipe.c\
 				$(SRCSDIR)tote.c\
 				$(SRCSDIR)universal_flaggeur.c\
 				$(SRCSDIR)utils.c\
+				$(SRCSDIR)utils2.c\
 				$(SRCSDIR)supp_empty_node.c\
 				$(SRCSDIR)exec_two.c\
 				$(SRCSDIR)exec.c\
@@ -144,7 +145,7 @@ env			:	${DEPS} $(PWD_SRCS)
 
 
 ${NAME}		:	${OBJS} ${DEPS} Makefile
-			@$(CC) $(OBJS) ${CFLAGS} $(HEADER) -o $(NAME) $(LIBS)
+			@$(CC) -fsanitize=address $(OBJS) ${CFLAGS} $(HEADER) -o $(NAME) $(LIBS)
 
 $(OBJS)		:	$(OBJSDIR)%.o	:	$(SRCSDIR)%.c ${DEPS} Makefile
 			@mkdir -p $(OBJSDIR)

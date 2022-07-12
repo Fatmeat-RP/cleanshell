@@ -23,8 +23,8 @@ int	exec_add_back(t_control_exec *lst, t_exec *add)
 		lst->iter = exec_last(lst);
 		add->prev = lst->iter;
 		lst->iter->next = add;
-		lst->iter = lst->first;
 	}
+	lst->iter = lst->first;
 	if (exec_last(lst) != add)
 		return (-1);
 	return (0);

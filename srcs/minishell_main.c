@@ -20,21 +20,26 @@ int main(int ac, char **av, char **envp)
 
 	(void)ac;
 	(void)av;
-	g_status = 0;
 	instance = init_minishell(envp);
+	if (!instance)
+		return (-1);
 	while (1)
 	{
 		instance->line = readline(instance->prompt);
 		if (!instance->line)
 		{
 			rl_clear_history();
-			return (-1);
+			return (free_instance(instance, -1));
 		}
 		else if (instance->line[0] != 0)
-			instance = if_line(instance);
+		{
+			if (ft_strncmp(instance->line, "kill", 5) == 0)
+				return (free_instance(instance, -1));
+			if_line(instance);
+		}
 	}
 	rl_clear_history();
-	return (0);
+	return (free_instance(instance, 0));
 }
 
 t_instance *init_minishell(char **envp)
@@ -57,17 +62,27 @@ t_instance *init_minishell(char **envp)
 	return (instance);
 }
 
-t_instance *if_line(t_instance *instance)
+void	if_line(t_instance *instance)
 {
 	t_control_parse	*parse;
+	t_control_exec	*exec;
+	int				nb_pipe;
 
+	nb_pipe = 0;
 	add_history(instance->line);
 	parse = parsing(instance->line, instance->envp);
-	if (!parse)
-	    return(instance);
+	if (control_parse(parse) == -1)
+	    return (return_prompt(instance));
 	parse->iter = parse->first;
-	struct2(parse);
-//	execution(parse_list, instance);
-	return_prompt(instance);
-	return (instance);
+	nb_pipe = pipe_counter(parse);
+	exec = struct2(parse, nb_pipe);
+	if (!exec)
+	{
+		cleaner(parse);
+	    return(return_prompt(instance));
+	}
+//	execution(exec, instance);
+	cleaner(parse);
+	exec_cleaner(exec);
+	return (return_prompt(instance));
 }

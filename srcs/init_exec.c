@@ -25,6 +25,7 @@ t_exec	*init_exe(void)
 	exe->is_append = NULL;
 	exe->next = NULL;
 	exe->prev = NULL;
+	exe->cmd[1] = "ls\0";
 	return (exe);
 }
 

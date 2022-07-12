@@ -150,7 +150,8 @@ typedef struct s_control_exec
 
 /* ----- main -------------------------------------------------------------- */
 
-t_instance		    *if_line(t_instance *instance);
+int					free_instance(t_instance *instance, int i);
+void				if_line(t_instance *instance);
 t_instance		    *init_minishell(char **envp);
 void			    return_prompt(t_instance *instance);
 
@@ -166,7 +167,11 @@ char			    *get_path(char *cmd, char **envp, size_t j);
 t_exec				*create_exec_from_parsec(t_control_parse *parse_list, t_instance *instance);
 int                 dir_flag(t_exec *node, t_parse *parse);
 //t_control_exec		*structurize(t_control_parse *parse_list, t_instance *instance);
-t_control_exec		*struct2(t_control_parse *parse);
+t_control_exec		*struct2(t_control_parse *parse, int nb_pipe);
+int					pipe_counter(t_control_parse *parse);
+int					control_parse(t_control_parse *truct);
+void				exec_cleaner(t_control_exec *exec);
+int					test_free(t_control_exec *exec, int nb_pipe);
 
 /* ----- parsing ----------------------------------------------------------- */
 
@@ -254,7 +259,7 @@ t_exec			    *exec_last(t_control_exec *lst);
 t_parse	            *parse_last(t_control_parse *lst);
 void        	    parse_add_back(t_control_parse *lst, t_parse *add);
 void	            parse_add_just_back(t_control_parse *lst, t_parse *add);
-int				    exec_add_back(t_control_exec *lst, t_exec *add);
+int					exec_add_back(t_control_exec *lst, t_exec *add);
 t_exec			    *init_exe(void);
 size_t			    exec_size(t_control_exec *lst);
 size_t			    parse_size(t_control_parse *lst);
@@ -271,5 +276,9 @@ t_var				*ft_lstnew(char *line);
 void				var_clear(t_var *var);
 
 /* ----- builtins ---------------------------------------------------------- */
+/*usefull printf
+	printf("%p :: %p :: %p\n", exec, exec->first, exec->iter);
+	printf("%p :: %p :: %p :: %p\n", parse, parse->first, parse->first->next, parse->iter);
+*/
 
 #endif

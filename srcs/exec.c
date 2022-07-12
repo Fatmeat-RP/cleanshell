@@ -40,7 +40,6 @@ int	execution(t_control_exec *exes, t_instance *instance)
     size_t          pipe_nb;
 
 	pid = 0;
-	printf("nee");
 	sleep(3);
 	if (pipeur(pipefd) == -1)
         return(-1);
