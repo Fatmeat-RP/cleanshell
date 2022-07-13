@@ -72,7 +72,7 @@ t_control_parse	*parsing(char *line, char **envp)
 			cleaner(parsing);
 			return (NULL);
 		}
-//		parsing_printer(parsing);
+		parsing_printer(parsing);
 	}
 	return (parsing);
 }
