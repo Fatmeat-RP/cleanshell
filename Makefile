@@ -65,7 +65,6 @@ SRCS 		=	$(SRCSDIR)check_consec_pipe.c\
 				$(SRCSDIR)parse_add_back.c\
 				$(SRCSDIR)parse.c\
 				$(SRCSDIR)parsing.c\
-				$(SRCSDIR)parsing_printer.c\
 				$(SRCSDIR)printer_error.c\
 				$(SRCSDIR)quote_supp.c\
 				$(SRCSDIR)redirection.c\

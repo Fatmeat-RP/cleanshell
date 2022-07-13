@@ -2,16 +2,21 @@
 
 void	exec_cleaner(t_control_exec *exec)
 {
+	int i;
+
 	if (!exec)
 		return ;
 	exec->iter = exec->first;
 	while (exec->first != NULL)
 	{
+		i = 0;
 		exec->iter = exec->first->next;
 	//	tab_cleaner(exec->first->in);
 	//	tab_cleaner(exec->first->out);
 		free(exec->first->is_append);
 		free(exec->first->limiter);
+		while(exec->first->cmd[i] != NULL)
+			free(exec->first->cmd[i++]);
 		free(exec->first);
 		exec->first = exec->iter;
 	}
@@ -43,13 +48,14 @@ int	test_free(t_control_exec *exec, int nb_pipe)
 	}
 	while (nb_pipe != 0)
 	{
-		if (!exec_add_back(exec, init_exe()))
+		if (exec_add_back(exec, init_exe()) == -1)
 		{
 			exec_cleaner(exec);
 			return (-1);
 		}
 		nb_pipe--;
 	}
+	exec->iter = exec->first;
 	return (0);
 }
 

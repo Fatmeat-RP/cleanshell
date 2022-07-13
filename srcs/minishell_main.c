@@ -76,6 +76,7 @@ void	if_line(t_instance *instance)
 	parse->iter = parse->first;
 	nb_pipe = pipe_counter(parse);
 	exec = struct2(parse, nb_pipe, instance->envp);
+	parse->iter = parse->first;
 	if (!exec)
 	{
 		cleaner(parse);

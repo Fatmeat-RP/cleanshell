@@ -175,7 +175,6 @@ int					test_free(t_control_exec *exec, int nb_pipe);
 /* ----- parsing ----------------------------------------------------------- */
 
 t_control_parse		*parsing(char *line, char **envp);
-int					parsing_printer(t_control_parse *parse_list);
 t_bool				first_check(char *line);
 t_bool				check_empty_line(char *line);
 t_bool				check_last_pipe(char *line);

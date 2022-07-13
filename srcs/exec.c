@@ -37,21 +37,23 @@ int	execution(t_control_exec *exes, t_instance *instance)
 {
     pid_t	pid;
 	int		old_in;
+	int		old_out;
 
 	pid = 0;
 	old_in = dup(STDIN_FILENO);
+	old_out = dup(STDOUT_FILENO);
 	while (exes->iter->next != NULL)
 	{
 		forklift(exes->iter, instance->envp);
 		exes->iter = exes->iter->next;
 	}
+	dup2(old_out, STDOUT_FILENO);
 	pid = fork();
 	if (pid == -1)
 		return (-1);
 	if (pid == 0)
 	{
 		exec_one_cmd(exes->iter, instance->envp);
-		exit (g_status);
 	}
 	waitpid(pid, &g_status, 0);
 	dup2(old_in, STDIN_FILENO);
