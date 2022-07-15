@@ -224,14 +224,6 @@ int				    execution(t_control_exec *exes, t_instance *instance);
 int                 allocator_counter(t_control_parse *parse_list,
 						t_exec *node, short in, short out);
 char	            **exec_split(char const *s, char c);
-//pid_t 				execmd_last_unpair(t_exec *cmd, char **envp, int pipefd[2][2]);//, pid_t last_cmd_pid);
-//pid_t 				execmd_last_pair(t_exec *cmd, char **envp, int pipefd[2][2]);//, pid_t last_cmd_pid);
-//pid_t 				execmd_first(t_exec *cmd, char **envp, int pipefd[2][2]);
-//pid_t 				execmd2(t_exec *cmd, char **envp, int pipefd[2][2]);//, pid_t last_cmd_pid);
-//pid_t 				execmd1(t_exec *cmd, char **envp, int pipefd[2][2]);//, pid_t last_cmd_pid);
-//pid_t				morepipe(t_control_exec	*exes, char **envp, int pipefd[2][2]);
-//pid_t				threepipe(t_exec *cmd, char **envp, int pipefd[2][2]);
-//pid_t				twopipe(t_exec *cmd, char **envp, int pipefd[2][2]);
 void				exec_one_cmd(t_exec *cmd, char **envp);
 pid_t				forklift(t_exec *cmd, char **envp);
 

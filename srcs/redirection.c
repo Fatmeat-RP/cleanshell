@@ -18,14 +18,18 @@ int redirect_in(t_exec *cmd, int pipefd[2])
 	char *line;
 
 	i = 0;
-	while (cmd->in[i + 1] != NULL)
+	while (cmd->in[i] != NULL)
 		i++;
 	if (i > 0)
 	{
+		access(cmd->in[i]) == -1
+			return (-1);
 		close(pipefd[0]);
 		pipefd[0] = open(cmd->in[i], O_RDONLY);
+		close(pipefd[1]);
+		dup2(pipefd[0], STDIN_FILENO);
 	}
-	if (cmd->is_here_doc == true)
+	else if (cmd->is_here_doc == true)
 	{
 		while (ft_strncmp(line, cmd->limiter, ft_strlen(cmd->limiter)) != 0)
 			get_next_line(&line);
@@ -48,6 +52,8 @@ int redirect_out(t_exec *cmd, int pipefd[2])
 			pipefd[0] = open(cmd->out[i], O_CREAT | O_WRONLY);
 		i++;
 	}
+	close(pipefd[0]);
+	dup2(pipefd[1], STDOUT_FILENO);
 	return (0);
 }
 

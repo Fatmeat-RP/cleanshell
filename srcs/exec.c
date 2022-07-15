@@ -36,7 +36,11 @@ int	execution(t_control_exec *exes, t_instance *instance)
 
 void	exec_one_cmd(t_exec *cmd, char **envp)
 {
-//	redirect_out(cmd);
+	int	fd[1];
+
+	fd[0] = -1;
+	fd[1] = -1;
+	redirect_out(cmd, fd);
 	signal(SIGQUIT, sig_quit_handler);
 	signal(SIGINT, sig_int_child_handler);
 	g_status = execve(cmd->cmd[0], cmd->cmd, envp);
