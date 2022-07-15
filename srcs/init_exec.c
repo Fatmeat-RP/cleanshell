@@ -19,16 +19,16 @@ t_exec	*init_exe(void)
 
 	i = 0;
 	exe = (t_exec *)malloc(sizeof(t_exec));
-	exe->in = NULL;
-	exe->out = NULL;
 	exe->limiter = NULL;
 	exe->is_here_doc = false;
-	exe->is_append = NULL;
 	exe->next = NULL;
 	exe->prev = NULL;
-	while (i < 100)
+	while (i <= 100)
 	{
 		exe->cmd[i] = NULL;
+		exe->in[i] = NULL;
+		exe->out[i] = NULL;
+		exe->is_append[i] = '\0';
 		i++;
 	}
 	return (exe);

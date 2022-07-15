@@ -112,10 +112,10 @@ typedef struct s_var
 struct s_execution
 {
 	char	    *cmd[100];
-	char	    **in;
-	char	    **out;
+	char	    *in[100];
+	char	    *out[100];
     char        *limiter;
-    char	    *is_append;
+    char	    is_append[100];
 	t_bool	    is_here_doc;
 	t_exec		*next;
 	t_exec		*prev;
@@ -214,14 +214,15 @@ void				re_flaggeur(t_control_parse *parsing);
 
 /* ----- redirect ---------------------------------------------------------- */
 
-int                 redirect1(t_exec *cmd, int pipefd[2][2]);
-int                 redirect2(t_exec *cmd, int pipefd[2][2]);
-void				close_pipe(int pipefd[2][2]);
+int					redirect_in(t_exec *cmd, int pipefd[2]);
+int					redirect_out(t_exec *cmd, int pipefd[2]);
+int					redirect_onecmd(t_exec *cmd);
 
 /* ----- execution --------------------------------------------------------- */
 
 int				    execution(t_control_exec *exes, t_instance *instance);
-int                 allocator_counter(t_control_parse *parse_list, t_exec *node);
+int                 allocator_counter(t_control_parse *parse_list,
+						t_exec *node, short in, short out);
 char	            **exec_split(char const *s, char c);
 //pid_t 				execmd_last_unpair(t_exec *cmd, char **envp, int pipefd[2][2]);//, pid_t last_cmd_pid);
 //pid_t 				execmd_last_pair(t_exec *cmd, char **envp, int pipefd[2][2]);//, pid_t last_cmd_pid);

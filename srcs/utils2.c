@@ -11,12 +11,15 @@ void	exec_cleaner(t_control_exec *exec)
 	{
 		i = 0;
 		exec->iter = exec->first->next;
-	//	tab_cleaner(exec->first->in);
-	//	tab_cleaner(exec->first->out);
-		free(exec->first->is_append);
 		free(exec->first->limiter);
 		while(exec->first->cmd[i] != NULL)
 			free(exec->first->cmd[i++]);
+		i = 0;
+		while(exec->first->out[i] != NULL)
+			free(exec->first->out[i++]);
+		i = 0;
+		while(exec->first->in[i] != NULL)
+			free(exec->first->in[i++]);
 		free(exec->first);
 		exec->first = exec->iter;
 	}
