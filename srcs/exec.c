@@ -15,11 +15,9 @@
 int	execution(t_control_exec *exes, t_instance *instance)
 {
 	int		old_in;
-	int		old_out;
 	pid_t	pid;
 
 	old_in = dup(STDIN_FILENO);
-	old_out = dup(STDOUT_FILENO);
 	while (exes->iter->next != NULL)
 	{
 		forklift(exes->iter, instance->envp);
@@ -31,10 +29,8 @@ int	execution(t_control_exec *exes, t_instance *instance)
 	if (pid == 0)
 		exec_one_cmd(exes->iter, instance->envp);
 	waitpid(pid, &g_status, 0);
-	dup2(old_out, STDOUT_FILENO);
 	dup2(old_in, STDIN_FILENO);
 	close(old_in);
-	close(old_out);
 	return (0);
 }
 
