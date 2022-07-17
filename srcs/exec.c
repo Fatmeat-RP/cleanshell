@@ -16,11 +16,12 @@ int	execution(t_control_exec *exes, t_instance *instance)
 {
 	int		old_in;
 	pid_t	pid;
+	int		fdin;
 
 	old_in = dup(STDIN_FILENO);
 	while (exes->iter->next != NULL)
 	{
-		forklift(exes->iter, instance->envp);
+		fdin = forklift(exes->iter, instance->envp, fdin);
 		exes->iter = exes->iter->next;
 	}
 	pid = fork();

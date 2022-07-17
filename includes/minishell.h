@@ -165,7 +165,6 @@ void			    sig_int_handler(int signum);
 char			    *get_path(char *cmd, char **envp, size_t j);
 t_exec				*create_exec_from_parsec(t_control_parse *parse_list, t_instance *instance);
 int                 dir_flag(t_exec *node, t_parse *parse);
-//t_control_exec		*structurize(t_control_parse *parse_list, t_instance *instance);
 t_control_exec		*struct2(t_control_parse *parse, int nb_pipe, char **envp);
 int					pipe_counter(t_control_parse *parse);
 int					control_parse(t_control_parse *truct);
@@ -226,7 +225,7 @@ int                 allocator_counter(t_control_parse *parse_list,
 						t_exec *node, short in, short out);
 char	            **exec_split(char const *s, char c);
 void				exec_one_cmd(t_exec *cmd, char **envp);
-pid_t				forklift(t_exec *cmd, char **envp);
+int					forklift(t_exec *cmd, char **envp, int fdin);
 
 /* ----- utils ------------------------------------------------------------- */
 
