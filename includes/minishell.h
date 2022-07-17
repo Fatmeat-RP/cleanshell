@@ -217,6 +217,7 @@ void				re_flaggeur(t_control_parse *parsing);
 int					redirect_in(t_exec *cmd, int pipefd[2]);
 int					redirect_out(t_exec *cmd, int pipefd[2]);
 int					redirect_onecmd(t_exec *cmd);
+int					line_counter(char **aos);
 
 /* ----- execution --------------------------------------------------------- */
 

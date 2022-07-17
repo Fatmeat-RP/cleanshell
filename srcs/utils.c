@@ -46,3 +46,17 @@ int	pipe_counter(t_control_parse *parse)
 	parse->iter = parse->first;
 	return (i);
 }
+
+int	line_counter(char **aos)
+{
+	int	i;
+
+	i = 0;
+ 	if (!aos)
+		return (0);
+	if (!aos[i])
+		return (0);
+	while (aos[i + 1] != NULL)
+		i++;
+	return (i);
+}

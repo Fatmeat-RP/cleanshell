@@ -38,11 +38,27 @@ void	exec_one_cmd(t_exec *cmd, char **envp)
 {
 	int	fd[1];
 
+	signal(SIGINT, sig_int_child_handler);
+	signal(SIGQUIT, sig_quit_handler);
 	fd[0] = -1;
 	fd[1] = -1;
-	redirect_out(cmd, fd);
-	signal(SIGQUIT, sig_quit_handler);
-	signal(SIGINT, sig_int_child_handler);
+	fd[0] = redirect_in(cmd, fd);
+	if (fd[0] == -1 && cmd->in[0] != NULL)
+	{
+		write(1, "minishell: ", 12);
+		write(1, cmd->in[line_counter(cmd->in)],
+			ft_strlen(cmd->in[line_counter(cmd->in)]));
+		write(1, ": No such file or directory\n", 29);
+		g_status = 1;
+		exit (g_status);
+	}
+	fd[1] = redirect_out(cmd, fd);
+	if (fd[0])
+		dup2(fd[0], STDIN_FILENO);
+	if (fd[1])
+		dup2(fd[1], STDOUT_FILENO);
 	g_status = execve(cmd->cmd[0], cmd->cmd, envp);
+	close(fd[0]);
+	close(fd[1]);
 	exit(g_status);
 }

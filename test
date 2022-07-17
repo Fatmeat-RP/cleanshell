@@ -1,0 +1,13 @@
+total 56
+drwxrwxrwx 1 fatmeat fatmeat  4096 Jul 17 03:49 .
+drwxrwxrwx 1 fatmeat fatmeat  4096 Jul 15 11:07 ..
+drwxrwxrwx 1 fatmeat fatmeat  4096 Jul 10 00:31 builtins
+drwxrwxrwx 1 fatmeat fatmeat  4096 Jul 15 15:42 .git
+-rwxrwxrwx 1 fatmeat fatmeat   480 Jul 10 00:31 .gitignore
+drwxrwxrwx 1 fatmeat fatmeat  4096 Jul 10 00:31 includes
+-rwxrwxrwx 1 fatmeat fatmeat  4307 Jul 13 01:46 Makefile
+-rwxrwxrwx 1 fatmeat fatmeat 48944 Jul 17 03:49 minishell
+drwxrwxrwx 1 fatmeat fatmeat  4096 Jul 17 03:49 objs
+drwxrwxrwx 1 fatmeat fatmeat  4096 Jul 13 01:47 srcs
+-rwxrwxrwx 1 fatmeat fatmeat     0 Jul 17 03:49 test
+drwxrwxrwx 1 fatmeat fatmeat  4096 Jul 10 00:31 .vscode
