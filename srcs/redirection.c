@@ -55,52 +55,27 @@ int redirect_out(t_exec *cmd, int pipefd[2])
 	return (pipefd[1]);
 }
 
-int here_doc(t_exec *cmd)
+int here_doc(t_exec *cmd, int pipefd[2])
 {
 	char	*line;
 
 	line = NULL;
 	if (cmd->is_here_doc == true)
 	{
-		while (ft_strncmp(line, cmd->limiter, ft_strlen(cmd->limiter)) != 0)
-			get_next_line(&line);
+		line = readline("heredoc> ");
+		while (line && ft_strncmp(line, cmd->limiter, ft_strlen(cmd->limiter)) != 0)
+		{
+			//send to pipe line
+			write(pipefd[1], line, ft_strlen(line));
+			free(line);
+			line = readline("heredoc> ");
+		}
+		if (line)
+		{
+			write(pipefd[1], line, ft_strlen(line));
+			free(line);
+		}
 		return (1);
 	}
 	return (0);
 }
-
-/*int redirect_onecmd(t_exec *cmd)
-{
-	int	i;
-//	int fd[2];
-	char *line;
-
-	i = 0;
-	while (cmd->in[i + 1] != NULL)
-		i++;
-	if (i > 0)
-	{
-//		close(fd[0]);
-		fd[0] = open(cmd->in[i], O_RDONLY);
-		dup2(fd[0], STDIN_FILENO);
-	}
-	if (cmd->is_here_doc == true)
-	{
-		while (ft_strncmp(line, cmd->limiter, ft_strlen(cmd->limiter)) != 0)
-			get_next_line(&line);
-		return (1);
-	}
-	i = 0;
-	while (cmd->out[i] != NULL)
-	{
-		close(fd[1]);
-		if (cmd->is_append[i] == '0')
-			fd[1] = open(cmd->out[i], O_CREAT | O_APPEND | O_WRONLY);
-		else
-			fd[1] = open(cmd->out[i], O_CREAT | O_WRONLY);
-		i++;
-	}
-	if (i > 0)
-		dup2(fd[1], STDOUT_FILENO);
-	return (0);
-}*/

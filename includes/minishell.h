@@ -217,7 +217,7 @@ int					redirect_in(t_exec *cmd, int pipefd[2]);
 int					redirect_out(t_exec *cmd, int pipefd[2]);
 int					redirect_onecmd(t_exec *cmd);
 int					line_counter(char **aos);
-int 				here_doc(t_exec *cmd);
+int 				here_doc(t_exec *cmd, int pipefd[2]);
 
 /* ----- execution --------------------------------------------------------- */
 

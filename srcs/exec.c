@@ -16,12 +16,15 @@ int	execution(t_control_exec *exes, t_instance *instance)
 {
 	int		old_in;
 	pid_t	pid;
-	int		fdin;
+	int		fd[2];
 
 	old_in = dup(STDIN_FILENO);
+	if (!pipe(fd))
+		return (-1);
+	here_doc(cmd, fd);
 	while (exes->iter->next != NULL)
 	{
-		fdin = forklift(exes->iter, instance->envp, fdin);
+		fd[0] = forklift(exes->iter, instance->envp, fd);
 		exes->iter = exes->iter->next;
 	}
 	pid = fork();
@@ -30,7 +33,7 @@ int	execution(t_control_exec *exes, t_instance *instance)
 	if (pid == 0)
 		exec_one_cmd(exes->iter, instance->envp);
 	waitpid(pid, &g_status, 0);
-	close(fdin);
+	close(fd[0]);
 	dup2(old_in, STDIN_FILENO);
 	close(old_in);
 	return (0);
@@ -42,9 +45,9 @@ void	exec_one_cmd(t_exec *cmd, char **envp)
 
 	signal(SIGINT, sig_int_child_handler);
 	signal(SIGQUIT, sig_quit_handler);
-	fd[0] = -1;
-	fd[1] = -1;
-	here_doc(cmd);
+	if (!pipe(fd))
+		exit (-1);
+	here_doc(cmd, fd);
 	fd[0] = redirect_in(cmd, fd);
 	if (fd[0] == -1 && cmd->in[0] != NULL)
 	{

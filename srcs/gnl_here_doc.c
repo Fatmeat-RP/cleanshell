@@ -14,18 +14,18 @@
 
 int	get_next_line(char **line)
 {
-	char	*buffer;
+	char	buffer[100];
 	int		i;
 	int		r;
 	char	c;
 
 	i = 0;
 	r = 0;
-	buffer = (char *)malloc(10000);
-	if (!buffer)
-		return (-1);
+	while (i++ < 100)
+		buffer[i] = 0;
+	i = 0;
 	r = read(0, &c, 1);
-	while (r && c != '\n' && c != '\0')
+	while (r && c != '\n' && c != '\0' && i < 100)
 	{
 		if (c != '\n' && c != '\0')
 			buffer[i] = c;
@@ -34,7 +34,6 @@ int	get_next_line(char **line)
 	}
 	buffer[i] = '\n';
 	buffer[++i] = '\0';
-	*line = buffer;
-	free(buffer);
+	line[0] = buffer;
 	return (r);
 }
