@@ -13,6 +13,7 @@ int	forklift(t_exec *cmd, char **envp, int fdin)
 	if (pid == 0)
 	{
 	//	pipefd = redirect_in_pipe(cmd, pipefd);
+		here_doc(cmd);
 		redirect_out(cmd, pipefd);
 		close(pipefd[0]);
 		dup2(pipefd[1], STDOUT_FILENO);

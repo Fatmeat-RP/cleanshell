@@ -6,7 +6,7 @@
 /*   By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 20:21:49 by acarle-m          #+#    #+#             */
-/*   Updated: 2022/07/09 00:51:43 by acarle-m         ###   ########.fr       */
+/*   Updated: 2022/07/18 02:24:54 by acarle-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	execution(t_control_exec *exes, t_instance *instance)
 	if (pid == 0)
 		exec_one_cmd(exes->iter, instance->envp);
 	waitpid(pid, &g_status, 0);
+	close(fdin);
 	dup2(old_in, STDIN_FILENO);
 	close(old_in);
 	return (0);
@@ -37,12 +38,13 @@ int	execution(t_control_exec *exes, t_instance *instance)
 
 void	exec_one_cmd(t_exec *cmd, char **envp)
 {
-	int	fd[1];
+	int	fd[2];
 
 	signal(SIGINT, sig_int_child_handler);
 	signal(SIGQUIT, sig_quit_handler);
 	fd[0] = -1;
 	fd[1] = -1;
+	here_doc(cmd);
 	fd[0] = redirect_in(cmd, fd);
 	if (fd[0] == -1 && cmd->in[0] != NULL)
 	{

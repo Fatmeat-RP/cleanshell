@@ -6,7 +6,7 @@
 /*   By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 18:02:45 by acarle-m          #+#    #+#             */
-/*   Updated: 2022/05/10 16:15:40 by acarle-m         ###   ########.fr       */
+/*   Updated: 2022/07/18 02:17:36 by acarle-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,6 @@ int redirect_in(t_exec *cmd, int pipefd[2])
 		if (pipefd[0] == -1)
 			return (-1);
 	}
-//	else if (cmd->is_here_doc == true)
-//	{
-//		while (ft_strncmp(line, cmd->limiter, ft_strlen(cmd->limiter)) != 0)
-//			get_next_line(&line);
-//		return (1);
-//	}
 	return (pipefd[0]);
 }
 
@@ -59,6 +53,20 @@ int redirect_out(t_exec *cmd, int pipefd[2])
 		i++;
 	}
 	return (pipefd[1]);
+}
+
+int here_doc(t_exec *cmd)
+{
+	char	*line;
+
+	line = NULL;
+	if (cmd->is_here_doc == true)
+	{
+		while (ft_strncmp(line, cmd->limiter, ft_strlen(cmd->limiter)) != 0)
+			get_next_line(&line);
+		return (1);
+	}
+	return (0);
 }
 
 /*int redirect_onecmd(t_exec *cmd)

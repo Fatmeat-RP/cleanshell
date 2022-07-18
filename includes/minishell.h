@@ -6,7 +6,7 @@
 /*   By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 19:15:22 by cben-bar          #+#    #+#             */
-/*   Updated: 2022/07/09 01:20:34 by acarle-m         ###   ########.fr       */
+/*   Updated: 2022/07/18 02:24:23 by acarle-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,6 +217,7 @@ int					redirect_in(t_exec *cmd, int pipefd[2]);
 int					redirect_out(t_exec *cmd, int pipefd[2]);
 int					redirect_onecmd(t_exec *cmd);
 int					line_counter(char **aos);
+int 				here_doc(t_exec *cmd);
 
 /* ----- execution --------------------------------------------------------- */
 
