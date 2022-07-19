@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_last_pipe.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cben-bar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:34:59 by cben-bar          #+#    #+#             */
-/*   Updated: 2022/07/09 01:17:32 by acarle-m         ###   ########.fr       */
+/*   Updated: 2022/06/15 16:37:45 by cben-bar         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "minishell.h"
 
 t_bool	check_last_pipe(char *line)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   supp_empty_node.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cben-bar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:02:48 by cben-bar          #+#    #+#             */
-/*   Updated: 2022/07/09 01:17:32 by acarle-m         ###   ########.fr       */
+/*   Updated: 2022/07/09 00:09:50 by cben-bar         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "minishell.h"
 
 t_bool	empty_elem(char *s)
 {

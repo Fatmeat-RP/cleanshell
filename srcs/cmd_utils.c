@@ -18,7 +18,7 @@ char	*get_path(char *cmd, char **envp, size_t j)
 	char	*path;
 	char	*part_path;
 
-	while (ft_strnstr(envp[j], "PATH", 4) == 0)
+	while (envp[0] && ft_strnstr(envp[j], "PATH", 4) == 0)
 		j++;
 	if (envp[j] == NULL)
 		return (cmd);

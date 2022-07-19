@@ -57,7 +57,6 @@ SRCS 		=	$(SRCSDIR)check_consec_pipe.c\
 				$(SRCSDIR)ft_strjoin.c\
 				$(SRCSDIR)ft_strlen.c\
 				$(SRCSDIR)ft_utils.c\
-				$(SRCSDIR)gnl_here_doc.c\
 				$(SRCSDIR)init.c\
 				$(SRCSDIR)init_exec.c\
 				$(SRCSDIR)lst_last.c\

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_multi_chev.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cben-bar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 16:30:46 by cben-bar          #+#    #+#             */
-/*   Updated: 2022/07/09 01:17:32 by acarle-m         ###   ########.fr       */
+/*   Updated: 2022/06/15 16:47:08 by cben-bar         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "minishell.h"
 
 void	parse_error_chev(t_parse *node, char c)
 {

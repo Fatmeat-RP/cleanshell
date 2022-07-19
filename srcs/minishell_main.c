@@ -25,7 +25,7 @@ int main(int ac, char **av, char **envp)
 		return (-1);
 	while (1)
 	{
-		instance->line = readline(instance->prompt);
+		instance->line = readline("minishell $>");
 		if (!instance->line)
 		{
 			rl_clear_history();
@@ -52,17 +52,10 @@ t_instance *init_minishell(char **envp)
 	if (!instance)
 		return (NULL);
 	instance->envp = envp;
-	instance->prompt = malloc(25);
-	if (!instance->prompt)
-	{
-		free(instance);
-		return (NULL);
-	}
-	strcpy(instance->prompt, "\033[33;1mminishell $> \033[0m");
 	return (instance);
 }
 
-void	if_line(t_instance *instance)
+int	if_line(t_instance *instance)
 {
 	t_control_parse	*parse;
 	t_control_exec	*exec;
@@ -72,7 +65,7 @@ void	if_line(t_instance *instance)
 	add_history(instance->line);
 	parse = parsing(instance->line, instance->envp);
 	if (control_parse(parse) == -1)
-	    return (return_prompt(instance));
+	    return (-1);
 	parse->iter = parse->first;
 	nb_pipe = pipe_counter(parse);
 	exec = struct2(parse, nb_pipe, instance->envp);
@@ -80,10 +73,10 @@ void	if_line(t_instance *instance)
 	if (!exec)
 	{
 		cleaner(parse);
-	    return(return_prompt(instance));
+	    return(-1);
 	}
 	execution(exec, instance);
 	cleaner(parse);
 	exec_cleaner(exec);
-	return (return_prompt(instance));
+	return (0);
 }

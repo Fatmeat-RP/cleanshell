@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_it.c                                      :+:      :+:    :+:   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cben-bar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 17:09:36 by cben-bar          #+#    #+#             */
-/*   Updated: 2022/07/09 01:17:32 by acarle-m         ###   ########.fr       */
+/*   Updated: 2022/06/15 17:37:07 by cben-bar         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "minishell.h"
 
 int	ft_strsuperdup(char **split, int i, const char *s, size_t len)
 {

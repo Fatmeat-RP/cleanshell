@@ -12,14 +12,6 @@
 
 #include <minishell.h>
 
-void	return_prompt(t_instance *instance)
-{
-	if (g_status != 0)
-		ft_strlcpy(instance->prompt, "\033[31;1mminishell $> \033[0m", 25);
-	else
-		ft_strlcpy(instance->prompt, "\033[33;1mminishell $> \033[0m", 25);
-}
-
 size_t	ft_size(char **array)
 {
 	size_t	i;

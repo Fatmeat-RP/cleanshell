@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   quote_supp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cben-bar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/05 18:18:05 by cben-bar          #+#    #+#             */
-/*   Updated: 2022/07/09 01:17:32 by acarle-m         ###   ########.fr       */
+/*   Created: 2022/07/09 01:44:14 by cben-bar          #+#    #+#             */
+/*   Updated: 2022/07/09 01:47:05 by cben-bar         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "minishell.h"
 
 int	cut_quote(t_parse *node, int nb_q)
 {
@@ -40,7 +40,7 @@ int	cut_quote(t_parse *node, int nb_q)
 		}
 	}
 	new[j] = '\0';
- 	free(node->elem);
+	free(node->elem);
 	node->elem = new;
 	return (1);
 }
@@ -54,7 +54,7 @@ int	there_is_quote(char *s)
 	i = 0;
 	q = 0;
 	nb_q = 0;
-	while(s[i])
+	while (s[i])
 	{
 		if (q != tote(s[i], q))
 		{
@@ -65,10 +65,12 @@ int	there_is_quote(char *s)
 	}
 	return (nb_q);
 }
+
 int	quote_supp(t_control_parse *parsing)
 {
 	char	*s;
 	int		nb_q;
+
 	parsing->iter = parsing->first;
 	while (parsing->iter)
 	{

@@ -97,7 +97,6 @@ typedef enum s_bool
 typedef struct s_instance
 {
 	char	**envp;
-	char	*prompt;
 	char	*line;
 }		t_instance;
 
@@ -150,7 +149,7 @@ typedef struct s_control_exec
 /* ----- main -------------------------------------------------------------- */
 
 int					free_instance(t_instance *instance, int i);
-void				if_line(t_instance *instance);
+int				if_line(t_instance *instance);
 t_instance		    *init_minishell(char **envp);
 void			    return_prompt(t_instance *instance);
 
@@ -173,43 +172,44 @@ int					test_free(t_control_exec *exec, int nb_pipe);
 
 /* ----- parsing ----------------------------------------------------------- */
 
-t_control_parse		*parsing(char *line, char **envp);
-t_bool				first_check(char *line);
-t_bool				check_empty_line(char *line);
-t_bool				check_last_pipe(char *line);
-t_bool				check_last_chev(char *line);
-t_bool				check_first_pipe(char *line);
-size_t				ft_strlen(char *s);
-t_bool				check_quote(char *line);
-char				**ft_split_it(char *line, char c, size_t i, int q);
-int					tote(char c, int q);
-t_bool				check_consec_pipe(char *line);
-char				*ft_strdup(char *s1);
-t_control_parse		*split_block(char *elem, int x);
-void				splitter(t_control_parse *parsing, t_control_parse *rep);
-void				tab_cleaner(char **tab);
-void				flaggeur_redir(t_control_parse *parsing);
-int					ft_strcmp(char *s1, char *s2);
-int					ft_strncmp(char *s1, char *s2, size_t n);
-void				flaggeur_file_name(t_control_parse *parsing);
-void				cut_redir(t_control_parse *parsing);
-void				universal_flaggeur(t_control_parse *parsing);
-void				check_multi_chev(t_control_parse *parsing);
-void				check_multi_node_chev(t_control_parse *parsing);
-void				check_no_file_name(t_control_parse *parsing);
-t_bool				printer_error(t_control_parse *parsing);
-t_var				*set_var(char **env);
-t_var				*fill_var(t_var *var, char **env);
-t_var				*dispatch_var(t_var *var);
-int					ft_strcmp(char *s1, char *s2);
-char				*ft_strcpy(char *dest, char *src);
-char				*ft_strjoin(char *s1, char *s2);
-int					dollar(t_control_parse *parsing, char **env);
-int					quote_supp(t_control_parse *parsing);
-int					supp_empty_node(t_control_parse *parsing);
-char				*ft_itoa(int n);
-void				re_flaggeur(t_control_parse *parsing);
-
+t_control_parse	*parsing(char *line, char **envp);
+int				parsing_printer(t_control_parse *parse_list);
+t_bool			first_check(char *line);
+t_bool			check_empty_line(char *line);
+t_bool			check_last_pipe(char *line);
+t_bool			check_last_chev(char *line);
+t_bool			check_first_pipe(char *line);
+size_t			ft_strlen(char *s);
+t_bool			check_quote(char *line);
+char			**ft_split_it(char *line, char c, size_t i, int q);
+int				tote(char c, int q);
+t_bool			check_consec_pipe(char *line);
+char			*ft_strdup(char *s1);
+t_control_parse	*split_block(char *elem, int x);
+void			splitter(t_control_parse *parsing, t_control_parse *rep);
+void			tab_cleaner(char **tab);
+void			flaggeur_redir(t_control_parse *parsing);
+int				ft_strcmp(char *s1, char *s2);
+int				ft_strncmp(char *s1, char *s2, size_t n);
+void			flaggeur_file_name(t_control_parse *parsing);
+void			cut_redir(t_control_parse *parsing);
+void			universal_flaggeur(t_control_parse *parsing);
+void			check_multi_chev(t_control_parse *parsing);
+void			check_multi_node_chev(t_control_parse *parsing);
+void			check_no_file_name(t_control_parse *parsing);
+t_bool			printer_error(t_control_parse *parsing);
+t_var			*set_var(char **env);
+t_var			*fill_var(t_var *var, char **env);
+t_var			*dispatch_var(t_var *var);
+int				ft_strcmp(char *s1, char *s2);
+char			*ft_strcpy(char *dest, char *src);
+char			*ft_strjoin(char *s1, char *s2);
+int				dollar(t_control_parse *parsing, char **env);
+int				quote_supp(t_control_parse *parsing);
+int				supp_empty_node(t_control_parse *parsing);
+char			*ft_itoa(int n);
+void			re_flaggeur(t_control_parse *parsing);
+int				ident_cmd(char *s);
 
 /* ----- redirect ---------------------------------------------------------- */
 
@@ -232,13 +232,11 @@ int					forklift(t_exec *cmd, char **envp, int fdin);
 
 void			    cmd_free(char **cmd);
 size_t			    ft_size(char **array);
-int				    get_next_line(char **line);
 char	            **ft_split(char const *s, char c);
 char        	    *ft_strnstr(const char *s1, char *s2, size_t n);
 char	            *ft_strfreejoin( char *s1,  char *s2);
 size_t      	    ft_strlcpy(char *dst,  char *src, size_t dstsize);
 int	                ft_memcmp(void *s1, void *s2, size_t n);
-
 int					ft_strncmp(char *s1, char *s2, size_t n);
 char				*ft_strdup(char *s1);
 int					ft_strcmp(char *s1, char *s2);
@@ -261,7 +259,7 @@ t_control_exec		*init_exe_list(void);
 t_parse				*init_parse(char *elem, float flag);
 t_control_parse		*init_control_parse(void);
 size_t				ft_strlen(char *s);
-t_control_parse		*set_parseur(t_control_parse *parsing, char **line_tab, char **envp);
+t_control_parse		*set_pars(t_control_parse *pars, char **line_tab, char **envp);
 void				cleaner(t_control_parse *parsing);
 t_control_parse		*parse(t_control_parse *parsing, size_t x, char **env);
 void				var_clear(t_var *var);

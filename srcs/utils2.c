@@ -64,7 +64,6 @@ int	test_free(t_control_exec *exec, int nb_pipe)
 
 int	free_instance(t_instance *instance, int i)
 {
-	free(instance->prompt);
 	free(instance);
 	return (i);
 }

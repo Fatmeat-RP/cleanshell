@@ -1,36 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   set_pars.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cben-bar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/15 16:09:27 by cben-bar          #+#    #+#             */
-/*   Updated: 2022/07/09 01:40:15 by cben-bar         ###   ########lyon.fr   */
+/*   Created: 2022/07/09 01:40:56 by cben-bar          #+#    #+#             */
+/*   Updated: 2022/07/09 01:41:00 by cben-bar         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_control_parse	*parsing(char *line, char **envp)
+t_control_parse	*set_pars(t_control_parse *pars, char **line_tab, char **env)
 {
-	t_control_parse	*parsing;
-	char			**line_tab;
-	size_t			i;
-	int				q;
+	size_t	i;
+	size_t	x;
 
-	parsing = NULL;
 	i = 0;
-	q = 0;
-	if (first_check(line))
+	x = 0;
+	pars = init_control_parse();
+	while (line_tab[i])
 	{
-		line_tab = ft_split_it(line, '|', i, q);
-		parsing = set_pars(parsing, line_tab, envp);
-		if (!printer_error(parsing))
-		{
-			cleaner(parsing);
-			return (NULL);
-		}
+		parse_add_back(pars, init_parse(ft_strdup(line_tab[i]), 0));
+		i++;
 	}
-	return (parsing);
+	while (line_tab[x])
+		x++;
+	tab_cleaner(line_tab);
+	pars = parse(pars, x, env);
+	return (pars);
 }

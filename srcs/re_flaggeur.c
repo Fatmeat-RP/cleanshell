@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   re_flaggeur.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cben-bar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 00:11:53 by cben-bar          #+#    #+#             */
-/*   Updated: 2022/07/09 01:17:32 by acarle-m         ###   ########.fr       */
+/*   Updated: 2022/07/09 01:48:42 by cben-bar         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "minishell.h"
 
 void	re_flaggeur(t_control_parse *parsing)
 {
@@ -24,9 +24,11 @@ void	re_flaggeur(t_control_parse *parsing)
 		tmp = parsing->iter;
 		while (parsing->iter && parsing->iter->flag != PIPE_FLAG)
 		{
-			if (parsing->iter->flag == CMD_FLAG) //PENSER AUX BUILTINS
+			if (parsing->iter->flag == CMD_FLAG)
 				tem_flag = 1;
-			parsing->iter = parsing->iter->next;	
+			else if (parsing->iter->flag == BUILTIN_FLAG)
+				tem_flag = 1;
+			parsing->iter = parsing->iter->next;
 		}
 		if (tem_flag == 0)
 		{
@@ -34,7 +36,7 @@ void	re_flaggeur(t_control_parse *parsing)
 			{
 				if (tmp->flag == ARGS_FLAG)
 				{
-					tmp->flag = CMD_FLAG;
+					tmp->flag = ident_cmd(tmp->elem);
 					break ;
 				}
 				tmp = tmp->next;
