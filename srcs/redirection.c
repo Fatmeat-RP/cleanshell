@@ -70,10 +70,12 @@ int here_doc(t_exec *cmd)
 		close(pipefd[0]);
 		dup2(pipefd[1], STDOUT_FILENO);
 		line = readline("heredoc> ");
+		write(pipefd[1], line, ft_strlen(line));
 		while (line && ft_strncmp(line, cmd->limiter, ft_strlen(cmd->limiter)) != 0)
 		{
 			free(line);
 			line = readline("heredoc> ");
+			write(pipefd[1], line, ft_strlen(line));
 		}
 		if (line)
 			free(line);
