@@ -27,7 +27,7 @@ ENV			=	$(BIN)env
 #$(UNSET)	=	$(BIN)unset
 
 SRCSDIR		=	./srcs/
-
+\
 SRCS 		=	$(SRCSDIR)check_consec_pipe.c\
 				$(SRCSDIR)check_empty_line.c\
 				$(SRCSDIR)check_first_pipe.c\
@@ -43,6 +43,8 @@ SRCS 		=	$(SRCSDIR)check_consec_pipe.c\
 				$(SRCSDIR)dispatch_var.c\
 				$(SRCSDIR)dollar.c\
 				$(SRCSDIR)exec_add_back.c\
+				$(SRCSDIR)exec.c\
+				$(SRCSDIR)execcmd.c\
 				$(SRCSDIR)exec_last.c\
 				$(SRCSDIR)exec_split.c\
 				$(SRCSDIR)fill_var.c\
@@ -50,6 +52,7 @@ SRCS 		=	$(SRCSDIR)check_consec_pipe.c\
 				$(SRCSDIR)flaggeur_file_name.c\
 				$(SRCSDIR)flaggeur_redir.c\
 				$(SRCSDIR)free_memory.c\
+				$(SRCSDIR)ft_itoa.c\
 				$(SRCSDIR)ft_split_it.c\
 				$(SRCSDIR)ft_strcmp.c\
 				$(SRCSDIR)ft_strcpy.c\
@@ -57,33 +60,31 @@ SRCS 		=	$(SRCSDIR)check_consec_pipe.c\
 				$(SRCSDIR)ft_strjoin.c\
 				$(SRCSDIR)ft_strlen.c\
 				$(SRCSDIR)ft_utils.c\
+				$(SRCSDIR)ident_cmd.c\
 				$(SRCSDIR)init.c\
 				$(SRCSDIR)init_exec.c\
 				$(SRCSDIR)lst_last.c\
 				$(SRCSDIR)lst_size.c\
+				$(SRCSDIR)minishell_main.c\
 				$(SRCSDIR)parse_add_back.c\
 				$(SRCSDIR)parse.c\
 				$(SRCSDIR)parsing.c\
+				$(SRCSDIR)parsing_printer.c\
 				$(SRCSDIR)printer_error.c\
 				$(SRCSDIR)quote_supp.c\
 				$(SRCSDIR)redirection.c\
+				$(SRCSDIR)re_flaggeur.c\
+				$(SRCSDIR)set_pars.c\
 				$(SRCSDIR)set_parseur.c\
 				$(SRCSDIR)set_var.c\
 				$(SRCSDIR)signal.c\
 				$(SRCSDIR)split_block.c\
+				$(SRCSDIR)struct2.c\
+				$(SRCSDIR)supp_empty_node.c\
 				$(SRCSDIR)tote.c\
 				$(SRCSDIR)universal_flaggeur.c\
-				$(SRCSDIR)utils.c\
 				$(SRCSDIR)utils2.c\
-				$(SRCSDIR)supp_empty_node.c\
-				$(SRCSDIR)exec.c\
-				$(SRCSDIR)ft_itoa.c\
-				$(SRCSDIR)re_flaggeur.c\
-				$(SRCSDIR)struct2.c\
-				$(SRCSDIR)execcmd.c\
-				$(SRCSDIR)minishell_main.c
-#				$(SRCSDIR)structurize.c\
-				$(SRCSDIR)exec_two.c\
+				$(SRCSDIR)utils.c
 
 
 ECHO_SRCS	=	./builtins/built_in_echo.c

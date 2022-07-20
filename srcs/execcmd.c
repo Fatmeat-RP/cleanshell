@@ -13,7 +13,7 @@ int	forklift(t_exec *cmd, char **envp, int fdin)
 	if (pid == 0)
 	{
 	//	pipefd = redirect_in_pipe(cmd, pipefd);
-		here_doc(cmd);
+		here_doc(cmd, pipefd);
 		redirect_out(cmd, pipefd);
 		close(pipefd[0]);
 		dup2(pipefd[1], STDOUT_FILENO);
@@ -28,4 +28,18 @@ int	forklift(t_exec *cmd, char **envp, int fdin)
 		waitpid(pid, &g_status, 0);
 	}	
 	return (pipefd[0]);
+}
+
+int	exec_cmd_pipe(t_exec *cmd, t_builtin *builtin)
+{
+	if (cmd->is_builtin == true)
+	{
+		while(builtin->iter->next && ft_strcmp(cmd->cmd[0], builtin[->name) != 0)
+			builtin->iter = builtin->iter->next;
+		exit(*builtin->fun)(cmd->cmd);
+	}
+	else
+	{
+
+	}
 }

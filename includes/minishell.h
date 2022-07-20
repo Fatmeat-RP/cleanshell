@@ -36,6 +36,7 @@ typedef long long	t_s128;
 
 typedef struct s_execution  t_exec;
 typedef struct s_parsing    t_parse;
+typedef struct s_btin		t_btin;
 
 extern int g_status;
 
@@ -96,8 +97,11 @@ typedef enum s_bool
 
 typedef struct s_instance
 {
-	char	**envp;
-	char	*line;
+	char		
+*envp;
+	char		
+line;
+	t_builtin	*builtin;
 }		t_instance;
 
 typedef struct s_var
@@ -116,6 +120,7 @@ struct s_execution
     char        *limiter;
     char	    is_append[100];
 	t_bool	    is_here_doc;
+	t_bool		is_builtin;
 	t_exec		*next;
 	t_exec		*prev;
 };	
@@ -141,6 +146,20 @@ typedef struct s_control_exec
 	t_exec	*iter;
 	size_t	*size;
 }	t_control_exec;
+
+typedef struct s_builtin
+{
+	t_btin	*first;
+	t_btin	*iter;
+	size_t	*size;
+}	t_builtin;
+
+struct s_btin
+{
+	char	*name;
+	int		(*fun)(char **arg);
+	t_btin	*next;
+};
 
 /* ****************************************************************************
 -----------------------------PROTOTYPES FUNCTIONS-----------------------------
@@ -190,7 +209,7 @@ void			splitter(t_control_parse *parsing, t_control_parse *rep);
 void			tab_cleaner(char **tab);
 void			flaggeur_redir(t_control_parse *parsing);
 int				ft_strcmp(char *s1, char *s2);
-int				ft_strncmp(char *s1, char *s2, size_t n);
+int				ft_strncmp(char *s1, char *s2, size_t n); 
 void			flaggeur_file_name(t_control_parse *parsing);
 void			cut_redir(t_control_parse *parsing);
 void			universal_flaggeur(t_control_parse *parsing);

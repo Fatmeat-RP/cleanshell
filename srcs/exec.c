@@ -12,19 +12,44 @@
 
 #include <minishell.h>
 
+int	chose_exec(t_control_exec *exes, t_instance *instance)
+{
+	if (exes->first->next == NULL)
+		return (execution_solo());
+	else
+		return (execution_pipe());
+}
+
+int	execution_solo(t_control_exec *exes, t_instance *instance)
+{
+	pid_t	pid;
+	int		pipefd[2];
+ 
+	if (pipe(pipefd) == -1)
+		return (-1);
+	pid = fork();
+	if (pid == -1)
+		return (-1);
+	if (pid == 0)
+		exec_one_cmd(exes->iter, instance->envp);
+	else
+		waitpid(pid, &g_status, 0);
+}
+
+int	execution_pipe(t_control_exec *exes, t_instance *instance)
+{
+}
+
 int	execution(t_control_exec *exes, t_instance *instance)
 {
 	int		old_in;
 	pid_t	pid;
-	int		fd[2];
+	int		fdin;
 
 	old_in = dup(STDIN_FILENO);
-	if (!pipe(fd))
-		return (-1);
-	here_doc(cmd, fd);
 	while (exes->iter->next != NULL)
 	{
-		fd[0] = forklift(exes->iter, instance->envp, fd);
+		fdin = forklift(exes->iter, instance->envp, fdin);
 		exes->iter = exes->iter->next;
 	}
 	pid = fork();
@@ -33,7 +58,6 @@ int	execution(t_control_exec *exes, t_instance *instance)
 	if (pid == 0)
 		exec_one_cmd(exes->iter, instance->envp);
 	waitpid(pid, &g_status, 0);
-	close(fd[0]);
 	dup2(old_in, STDIN_FILENO);
 	close(old_in);
 	return (0);
@@ -41,12 +65,12 @@ int	execution(t_control_exec *exes, t_instance *instance)
 
 void	exec_one_cmd(t_exec *cmd, char **envp)
 {
-	int	fd[2];
+	int	fd[1];
 
 	signal(SIGINT, sig_int_child_handler);
 	signal(SIGQUIT, sig_quit_handler);
-	if (!pipe(fd))
-		exit (-1);
+	fd[0] = 0;
+	fd[1] = 1;
 	here_doc(cmd, fd);
 	fd[0] = redirect_in(cmd, fd);
 	if (fd[0] == -1 && cmd->in[0] != NULL)

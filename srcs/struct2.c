@@ -28,7 +28,10 @@ t_control_exec	*struct2(t_control_parse *parse, int nb_pipe, char **envp)
             exec->iter->cmd[0] = get_path(strdup(parse->iter->elem), envp, 0);
 		}
 		else if (parse->iter->flag == BUILTIN_FLAG)
+		{
 			exec->iter->cmd[0] = get_path(strdup(parse->iter->elem), envp, 0);
+			exec->iter->is_builtin = true;
+		}
         else if (parse->iter->flag == ARGS_FLAG)
 		{
 			exec->iter->cmd[i] = strdup(parse->iter->elem);

@@ -55,27 +55,34 @@ int redirect_out(t_exec *cmd, int pipefd[2])
 	return (pipefd[1]);
 }
 
-int here_doc(t_exec *cmd, int pipefd[2])
+int here_doc(t_exec *cmd)
 {
 	char	*line;
+	int		pipefd[2];
+	pid_t	pid;
 
 	line = NULL;
-	if (cmd->is_here_doc == true)
+	pid = fork();
+	if (pid == -1)
+		return(-1);
+	if (pid)
 	{
+		close(pipefd[0]);
+		dup2(pipefd[1], STDOUT_FILENO);
 		line = readline("heredoc> ");
 		while (line && ft_strncmp(line, cmd->limiter, ft_strlen(cmd->limiter)) != 0)
 		{
-			//send to pipe line
-			write(pipefd[1], line, ft_strlen(line));
 			free(line);
 			line = readline("heredoc> ");
 		}
 		if (line)
-		{
-			write(pipefd[1], line, ft_strlen(line));
 			free(line);
-		}
-		return (1);
+		exit (0);
 	}
-	return (0);
+	else
+	{
+		close(pipefd[1]);
+		dup2(pipefd[0], STDIN_FILENO);
+	}
+	return (pipefd[0]);
 }

@@ -18,9 +18,7 @@ int main(int ac, char **av, char **envp)
 {
 	t_instance	*instance;
 
-	(void)ac;
-	(void)av;
-	instance = init_minishell(envp);
+	instance = init_minishell(envp, ac, av);
 	if (!instance)
 		return (-1);
 	while (1)
@@ -42,15 +40,18 @@ int main(int ac, char **av, char **envp)
 	return (free_instance(instance, 0));
 }
 
-t_instance *init_minishell(char **envp)
+t_instance *init_minishell(char **envp, int ac, char **av)
 {
 	t_instance	*instance;
 
+	(void)ac;
+	(void)av;
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, sig_int_handler);
 	instance = malloc(sizeof(t_instance *));
 	if (!instance)
 		return (NULL);
+	instance->builtin = init_builtin();
 	instance->envp = envp;
 	return (instance);
 }
