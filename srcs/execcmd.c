@@ -30,16 +30,20 @@ int	forklift(t_exec *cmd, char **envp, int fdin)
 	return (pipefd[0]);
 }
 
-int	exec_cmd_pipe(t_exec *cmd, t_builtin *builtin)
+int	exec_cmd_pipe(t_exec *cmd, t_instance *instance)
 {
 	if (cmd->is_builtin == true)
 	{
-		while(builtin->iter->next && ft_strcmp(cmd->cmd[0], builtin[->name) != 0)
-			builtin->iter = builtin->iter->next;
-		exit(*builtin->fun)(cmd->cmd);
+		while(instance->builtin->iter->next
+			&& ft_strcmp(cmd->cmd[0], instance->builtin->iter->name) != 0)
+			instance->builtin->iter = instance->builtin->iter->next;
+		g_status = (*instance->builtin->iter->fun)(cmd->cmd);
+		exit (g_status);
 	}
 	else
 	{
-
+		g_status = execve(cmd->cmd[0], cmd->cmd, instance->envp);
+		exit (g_status);
 	}
+	exit (EXIT_FAILURE)
 }

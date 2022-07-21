@@ -6,7 +6,7 @@
 /*   By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 20:20:54 by acarle-m          #+#    #+#             */
-/*   Updated: 2022/07/18 02:48:52 by acarle-m         ###   ########.fr       */
+/*   Updated: 2022/07/21 00:45:07 by acarle-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,49 @@ int main(int ac, char **av, char **envp)
 	}
 	rl_clear_history();
 	return (free_instance(instance, 0));
+}
+
+t_builtin	*init_builtin(void)
+{
+	t_builtin	*built;
+
+	built = malloc(sizeof(t_builtin));
+	built->first = malloc(sizeof(t_btin));
+	built->iter = built->first;
+	built->first->name = ft_strdup("cd");
+	built->first->fun = cd;
+	built->iter = built->iter->next;
+	built->iter = malloc(sizeof(t_btin));
+	built->iter->name = ft_strdup("exit");
+	built->first->fun = exit_builtin;
+	built->iter = built->iter->next;
+	built->iter = malloc(sizeof(t_btin));
+	built->iter->name = ft_strdup("echo");
+	built->first->fun = echo;
+	built->iter = built->iter->next;
+	return (init_built2(built));
+}
+
+t_builtin	*init_built2(t_builtin *built)
+{
+	built->iter = malloc(sizeof(t_btin));
+	built->iter->name = ft_strdup("export");
+	built->first->fun = export;
+	built->iter = built->iter->next;
+	built->iter = malloc(sizeof(t_btin));
+	built->iter->name = ft_strdup("env");
+	built->first->fun = env;
+	built->iter = built->iter->next;
+	built->iter = malloc(sizeof(t_btin));
+	built->iter->name = ft_strdup("pwd");
+	built->first->fun = pwd;
+	built->iter = built->iter->next;
+	built->iter = malloc(sizeof(t_btin));
+	built->iter->name = ft_strdup("unset");
+	built->first->fun = unset;
+	built->iter->next = NULL;
+	built->iter = built->first;
+	return (built);
 }
 
 t_instance *init_minishell(char **envp, int ac, char **av)

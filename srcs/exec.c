@@ -6,7 +6,7 @@
 /*   By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 20:21:49 by acarle-m          #+#    #+#             */
-/*   Updated: 2022/07/18 02:24:54 by acarle-m         ###   ########.fr       */
+/*   Updated: 2022/07/21 02:11:23 by acarle-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int	chose_exec(t_control_exec *exes, t_instance *instance)
 {
 	if (exes->first->next == NULL)
-		return (execution_solo());
+		return (execution_solo(exes, instance));
 	else
-		return (execution_pipe());
+		return (execution_pipe(exes, instance));
 }
 
 int	execution_solo(t_control_exec *exes, t_instance *instance)
@@ -30,39 +30,38 @@ int	execution_solo(t_control_exec *exes, t_instance *instance)
 	pid = fork();
 	if (pid == -1)
 		return (-1);
+	if (exes->first->is_here_doc == true)
+		here_doc(exes->first, pipefd);
 	if (pid == 0)
-		exec_one_cmd(exes->iter, instance->envp);
+		exec_one_cmd(exes->first, instance->envp);
 	else
 		waitpid(pid, &g_status, 0);
+	return (g_status);
 }
 
 int	execution_pipe(t_control_exec *exes, t_instance *instance)
-{
-}
-
-int	execution(t_control_exec *exes, t_instance *instance)
 {
 	int		old_in;
 	pid_t	pid;
 	int		fdin;
 
 	old_in = dup(STDIN_FILENO);
-	while (exes->iter->next != NULL)
+	while (exes->iter != NULL)
 	{
 		fdin = forklift(exes->iter, instance->envp, fdin);
 		exes->iter = exes->iter->next;
 	}
+	dup2(old_in, STDIN_FILENO);
+	return (0);
+}
+/*
 	pid = fork();
 	if (pid == -1)
 		return (-1);
 	if (pid == 0)
 		exec_one_cmd(exes->iter, instance->envp);
 	waitpid(pid, &g_status, 0);
-	dup2(old_in, STDIN_FILENO);
-	close(old_in);
-	return (0);
-}
-
+*/
 void	exec_one_cmd(t_exec *cmd, char **envp)
 {
 	int	fd[1];
