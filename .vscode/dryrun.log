@@ -2,9 +2,9 @@ make --dry-run --always-make --keep-going --print-directory
 make: Entering directory `/Users/acarle-m/Documents/cleanshell'
 mkdir -p ./objs/
 gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/check_consec_pipe.c -o objs/check_consec_pipe.o
- 
 mkdir -p ./objs/
 gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/check_empty_line.c -o objs/check_empty_line.o
+ 
 mkdir -p ./objs/
 gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/check_first_pipe.c -o objs/check_first_pipe.o
 mkdir -p ./objs/
@@ -24,16 +24,21 @@ gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/cl
 mkdir -p ./objs/
 gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/cmd_utils.c -o objs/cmd_utils.o
 mkdir -p ./objs/
- 
 gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/cut_redir.c -o objs/cut_redir.o
 mkdir -p ./objs/
 gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/dispatch_var.c -o objs/dispatch_var.o
 mkdir -p ./objs/
 gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/dollar.c -o objs/dollar.o
+ 
 mkdir -p ./objs/
 gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/exec_add_back.c -o objs/exec_add_back.o
 mkdir -p ./objs/
+gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/exec.c -o objs/exec.o
+mkdir -p ./objs/
+gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/execcmd.c -o objs/execcmd.o
+mkdir -p ./objs/
 gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/exec_last.c -o objs/exec_last.o
+ 
 mkdir -p ./objs/
 gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/exec_split.c -o objs/exec_split.o
 mkdir -p ./objs/
@@ -46,10 +51,14 @@ mkdir -p ./objs/
 gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/flaggeur_redir.c -o objs/flaggeur_redir.o
 mkdir -p ./objs/
 gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/free_memory.c -o objs/free_memory.o
+ 
+mkdir -p ./objs/
+gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/ft_itoa.c -o objs/ft_itoa.o
 mkdir -p ./objs/
 gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/ft_split_it.c -o objs/ft_split_it.o
 mkdir -p ./objs/
 gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/ft_strcmp.c -o objs/ft_strcmp.o
+ 
 mkdir -p ./objs/
 gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/ft_strcpy.c -o objs/ft_strcpy.o
 mkdir -p ./objs/
@@ -61,7 +70,8 @@ gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/ft
 mkdir -p ./objs/
 gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/ft_utils.c -o objs/ft_utils.o
 mkdir -p ./objs/
-gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/gnl_here_doc.c -o objs/gnl_here_doc.o
+gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/ident_cmd.c -o objs/ident_cmd.o
+ 
 mkdir -p ./objs/
 gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/init.c -o objs/init.o
 mkdir -p ./objs/
@@ -71,11 +81,16 @@ gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/ls
 mkdir -p ./objs/
 gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/lst_size.c -o objs/lst_size.o
 mkdir -p ./objs/
+gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/minishell_main.c -o objs/minishell_main.o
+mkdir -p ./objs/
+ 
 gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/parse_add_back.c -o objs/parse_add_back.o
 mkdir -p ./objs/
 gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/parse.c -o objs/parse.o
 mkdir -p ./objs/
 gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/parsing.c -o objs/parsing.o
+mkdir -p ./objs/
+gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/parsing_printer.c -o objs/parsing_printer.o
 mkdir -p ./objs/
 gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/printer_error.c -o objs/printer_error.o
 mkdir -p ./objs/
@@ -83,35 +98,32 @@ gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/qu
 mkdir -p ./objs/
 gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/redirection.c -o objs/redirection.o
 mkdir -p ./objs/
+gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/re_flaggeur.c -o objs/re_flaggeur.o
+ 
+mkdir -p ./objs/
+gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/set_pars.c -o objs/set_pars.o
+mkdir -p ./objs/
 gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/set_parseur.c -o objs/set_parseur.o
 mkdir -p ./objs/
 gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/set_var.c -o objs/set_var.o
+ 
 mkdir -p ./objs/
 gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/signal.c -o objs/signal.o
 mkdir -p ./objs/
 gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/split_block.c -o objs/split_block.o
 mkdir -p ./objs/
+gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/struct2.c -o objs/struct2.o
+mkdir -p ./objs/
+gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/supp_empty_node.c -o objs/supp_empty_node.o
+mkdir -p ./objs/
 gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/tote.c -o objs/tote.o
 mkdir -p ./objs/
 gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/universal_flaggeur.c -o objs/universal_flaggeur.o
 mkdir -p ./objs/
-gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/utils.c -o objs/utils.o
-mkdir -p ./objs/
 gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/utils2.c -o objs/utils2.o
+ 
 mkdir -p ./objs/
-gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/supp_empty_node.c -o objs/supp_empty_node.o
-mkdir -p ./objs/
-gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/exec.c -o objs/exec.o
-mkdir -p ./objs/
-gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/ft_itoa.c -o objs/ft_itoa.o
-mkdir -p ./objs/
-gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/re_flaggeur.c -o objs/re_flaggeur.o
-mkdir -p ./objs/
-gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/struct2.c -o objs/struct2.o
-mkdir -p ./objs/
-gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/execcmd.c -o objs/execcmd.o
-mkdir -p ./objs/
-gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/minishell_main.c -o objs/minishell_main.o
-gcc -fsanitize=address ./objs/check_consec_pipe.o ./objs/check_empty_line.o ./objs/check_first_pipe.o ./objs/check_last_chev.o ./objs/check_last_pipe.o ./objs/check_multi_chev.o ./objs/check_multi_node_chev.o ./objs/check_no_file_name.o ./objs/check_quote.o ./objs/cleaner.o ./objs/cmd_utils.o ./objs/cut_redir.o ./objs/dispatch_var.o ./objs/dollar.o ./objs/exec_add_back.o ./objs/exec_last.o ./objs/exec_split.o ./objs/fill_var.o ./objs/first_check.o ./objs/flaggeur_file_name.o ./objs/flaggeur_redir.o ./objs/free_memory.o ./objs/ft_split_it.o ./objs/ft_strcmp.o ./objs/ft_strcpy.o ./objs/ft_strdup.o ./objs/ft_strjoin.o ./objs/ft_strlen.o ./objs/ft_utils.o ./objs/gnl_here_doc.o ./objs/init.o ./objs/init_exec.o ./objs/lst_last.o ./objs/lst_size.o ./objs/parse_add_back.o ./objs/parse.o ./objs/parsing.o ./objs/printer_error.o ./objs/quote_supp.o ./objs/redirection.o ./objs/set_parseur.o ./objs/set_var.o ./objs/signal.o ./objs/split_block.o ./objs/tote.o ./objs/universal_flaggeur.o ./objs/utils.o ./objs/utils2.o ./objs/supp_empty_node.o ./objs/exec.o ./objs/ft_itoa.o ./objs/re_flaggeur.o ./objs/struct2.o ./objs/execcmd.o ./objs/minishell_main.o -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -o minishell -L ~/.brew/opt/readline/lib -lreadline
+gcc -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -c srcs/utils.c -o objs/utils.o
+gcc -fsanitize=address ./objs/check_consec_pipe.o ./objs/check_empty_line.o ./objs/check_first_pipe.o ./objs/check_last_chev.o ./objs/check_last_pipe.o ./objs/check_multi_chev.o ./objs/check_multi_node_chev.o ./objs/check_no_file_name.o ./objs/check_quote.o ./objs/cleaner.o ./objs/cmd_utils.o ./objs/cut_redir.o ./objs/dispatch_var.o ./objs/dollar.o ./objs/exec_add_back.o ./objs/exec.o ./objs/execcmd.o ./objs/exec_last.o ./objs/exec_split.o ./objs/fill_var.o ./objs/first_check.o ./objs/flaggeur_file_name.o ./objs/flaggeur_redir.o ./objs/free_memory.o ./objs/ft_itoa.o ./objs/ft_split_it.o ./objs/ft_strcmp.o ./objs/ft_strcpy.o ./objs/ft_strdup.o ./objs/ft_strjoin.o ./objs/ft_strlen.o ./objs/ft_utils.o ./objs/ident_cmd.o ./objs/init.o ./objs/init_exec.o ./objs/lst_last.o ./objs/lst_size.o ./objs/minishell_main.o ./objs/parse_add_back.o ./objs/parse.o ./objs/parsing.o ./objs/parsing_printer.o ./objs/printer_error.o ./objs/quote_supp.o ./objs/redirection.o ./objs/re_flaggeur.o ./objs/set_pars.o ./objs/set_parseur.o ./objs/set_var.o ./objs/signal.o ./objs/split_block.o ./objs/struct2.o ./objs/supp_empty_node.o ./objs/tote.o ./objs/universal_flaggeur.o ./objs/utils2.o ./objs/utils.o -Wall -Wextra -Werror -I includes -I ~/.brew/opt/readline/include -o minishell -L ~/.brew/opt/readline/lib -lreadline
 make: Leaving directory `/Users/acarle-m/Documents/cleanshell'
  
